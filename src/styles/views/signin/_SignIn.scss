@@ -1,0 +1,41 @@
+@import '../../tools';
+
+// check 
+.signin {
+    height: 100vh;
+}
+
+.clipped-e-header {
+    position: relative;
+    height: 20vh;
+    width: 100vw;
+    z-index: 0;
+    clip-path: ellipse(65% 80% at 51% 0%);
+    background-image: url('https://picsum.photos/510/300?tech');
+    background-position: top;
+    background-position: center 130%;
+    background-size: cover;
+}
+
+.overlay {
+   @include overlay ; 
+}
+
+.logo {
+    z-index: 1000;
+    position: absolute;
+    top: 50%;
+    left: 42%;
+    transform: translate(-5%, -50%);
+}
+
+.btn-color {
+    @include primaryBtn;
+
+}
+
+// remove
+
+.full {
+    height: 75vh;
+}

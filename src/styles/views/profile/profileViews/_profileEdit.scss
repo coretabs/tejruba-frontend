@@ -1,0 +1,5 @@
+@import '../../../tools';
+
+.v-btn.btn-color {
+    @include primaryBtn;
+ }

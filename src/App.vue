@@ -1,29 +1,34 @@
 <template>
+<!-- 
+                  #تعديلات مهمه #
+   [جعل كمبوننت المعلومات يظهر مباشره عند فتح البروفايل] # 
+   [جعل كمبوننت المعلومات يظهر مباشره عند فتح البروفايل] # 
+-->
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <v-app>
+      <Header/>
+      <v-content>
+        <!-- <cat-picker/> -->
+          <router-view/>
+      </v-content>
+      <bottom-nav/>
+    </v-app>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import bottomNav from './components/app-layout/bottomNav.vue'
+import Header from './components/app-layout/Header.vue'
+import catPicker from './views/CategoriesPicker.vue'
+export default {
+  components:{
+    bottomNav,
+    Header,
+    catPicker
   }
+  
 }
+</script>
+<style lang="scss">
+@import './styles/app';
 </style>

@@ -1,0 +1,48 @@
+@mixin clipped_header_circle ($height, $width, $clip_Y, $clip_center) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: ($height);
+    width: ($width);
+    z-index: 0;
+
+    @include clipped_circle ($clip_Y, $clip_center);
+    
+    background-image: linear-gradient(175deg, #49a8c9 0%, #273486 60%);
+}
+
+
+@mixin clipped_circle ($yAxis, $center) {
+    -webkit-clip-path: circle($yAxis at $center 0);
+    clip-path: circle($yAxis at $center 0);
+}
+
+
+@mixin app_gradient ($angle, $col_1_pos, $col_2_pos) {
+    background-image: linear-gradient($angle, #49a8c9 $col_1_pos, #273486 $col_2_pos);
+}
+
+
+@mixin primaryBtn {
+    background-image: linear-gradient(-200deg, #49a8c9 0%, #273486 85%);
+    width: 100%;
+    height: 45px;
+}
+
+
+@mixin overlay {
+    background-image: linear-gradient(175deg, #49a8c9 0%, #273486 60%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .7;
+    @include flex-center;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

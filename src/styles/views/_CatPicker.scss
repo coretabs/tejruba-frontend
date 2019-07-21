@@ -1,0 +1,6 @@
+@import '../tools' ;
+
+.clipped-header{
+    @include clipped_header_circle (50vh , 100vw ,90% ,50%);
+  }
+  

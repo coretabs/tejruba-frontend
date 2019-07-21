@@ -1,0 +1,28 @@
+@import './tools',
+'./components/CategoriesList',
+// components
+'./components/app-layout/Header',
+'./components/app-layout/BottomNav',
+
+// views
+'./views/Home',
+// views/profile
+'./views/profile/profile',
+// profileViews
+'./views/profile/profileViews/about',
+'./views/profile/profileViews/favorites',
+'./views/profile/profileViews/profileEdit',
+'./views/profile/profileViews/posts';
+
+
+#app {
+  font-family: 'Droid Arabic Kufi', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+* {
+  z-index: 0;
+}

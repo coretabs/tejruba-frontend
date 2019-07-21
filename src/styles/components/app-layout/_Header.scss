@@ -1,0 +1,19 @@
+@import '../../tools';
+
+.center {
+    display: inline-block;
+    border-right: 1px solid #fff
+}
+
+.gradient {
+    width: 100vw;
+    height: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(175deg, #49a8c9 17%, #3a76ac 100%);
+}
+
+.toolbar {
+    z-index: 2;
+}

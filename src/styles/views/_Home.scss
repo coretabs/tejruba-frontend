@@ -1,0 +1,30 @@
+@import '../tools' ;
+
+
+.home{
+    margin: 0;
+    padding:0; 
+  }
+  .clipped-header{
+    @include clipped_header_circle (50vh , 100vw ,100% ,60%);
+  }
+  
+
+  .post-text{
+    font-size: 14px;
+  }
+
+
+
+   
+//   .gradient{
+//       width: 100vw;
+//       height: 56px;
+//       position: fixed;
+//       top:0;
+//        left: 0;
+//       z-index: 10;
+//            background-image: linear-gradient(175deg, #49a8c9 17%, #3a76ac 100%);
+  
+//   }
+
