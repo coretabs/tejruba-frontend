@@ -3,7 +3,10 @@
     
     <v-btn color="lightgreen" router to="/editor">editor</v-btn>
         <v-card>
-            <div ref="contentViewer"></div>
+            <div>lo</div>
+        </v-card>
+        <v-card>
+            <div ref="contentViewer">lo</div>
         </v-card>
     </v-container>
 </template>
@@ -25,7 +28,6 @@ export default {
         let quill = new Quill(article , {})
         quill.setContents(this.delta)
         setTimeout(()=>{ this.$refs.contentViewer.appendChild(article) },0)
-
     }
 
 }

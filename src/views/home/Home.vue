@@ -55,11 +55,14 @@
     components: {
       categoriesList,
     },
+
+    
     methods: {
       test: function () {
         console.log(store)
       }
     },
+   
     mounted: function () {
       this.$store.state.currentPage = this.$route.name;
       console.log(this.$store.state.currentPage);
