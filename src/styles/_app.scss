@@ -15,8 +15,18 @@
 './views/profile/profileViews/posts';
 
 
-#app {
+@font-face{
+  font-family: 'Droid Arabic Kufi';
+  font-display: block;
+  src: url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+}
+
+*{
   font-family: 'Droid Arabic Kufi', serif;
+}
+
+
+#app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
