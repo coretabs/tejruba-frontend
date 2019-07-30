@@ -6,6 +6,8 @@ import Home from "./views/home/Home.vue";
 import Editor from "./views/editor/Post_editor.vue"
 import Preview from "./views/editor/Preview.vue"
 
+import singlePostPage from "./views/singlePostPage/singlePostPage.vue"
+
 
 import Profile from "./views/profile/Profile.vue"
   import UserAbout from "./views/profile/profile-views/User-about.vue"
@@ -31,6 +33,11 @@ export default new Router({
     },
 
     //remove --------
+    {
+      path: "/postPage",
+      name: "تجربه",
+      component: singlePostPage
+    },
     {
       path: "/signin",
       name: "دخول",

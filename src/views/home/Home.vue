@@ -9,7 +9,7 @@
     <v-container class="pt-0  mb-5">
       <v-layout column wrap>
         <v-flex ms12 class="my-3">
-          <v-card class="elevation-20 article_card">
+          <v-card class="elevation-20 article_card" router to="/postPage">
             <v-img src="https://images.unsplash.com/photo-1563714272638-882a6309ba7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" aspect-ratio="2.75">
               <v-layout justify-start>
                 <v-avatar class="box-shadow pa-3 ma-2" size="40" color="gray">
@@ -18,9 +18,9 @@
               </v-layout>
             </v-img>
 
-            <v-card-title primary-title class="pb-0">
+            <v-card-title primary-title class="pb-0 text-xs-right">
               <div>
-                <h2 ma-0>كيف أصبحت طبيبا مطورا </h2>
+                <h1 ma-0>كيف أصبحت طبيبا مطورا </h1>
               </div>
             </v-card-title>
             <v-card-text class="pt-2">
