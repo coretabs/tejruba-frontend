@@ -1,7 +1,7 @@
 <template>
     <div class="signin">
         <div class="clipped-e-header hidden-md-and-up">
-            <img src="../../assets/img/T_logo.svg" class="logo" alt="logo">
+            <img src="../../assets/t_logo.png" class="logo" alt="logo">
             <div class="overlay">
             </div>
         </div>

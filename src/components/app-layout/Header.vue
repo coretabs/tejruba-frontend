@@ -11,11 +11,11 @@
 
             <!-- logo -->
 
-            <img src="../../assets/img/T_logo.svg" class="ml-3 " height="25px" />
+            <img src="../../assets/T_logo.svg" class="ml-3 " height="25px" />
             <!-- Avatar -->
 
             <v-avatar size="33" color="primary" >
-                <img   src="../../assets/img/avatar.png"
+                <img   src="../../assets/avatar.png"
                     alt="avatar">
             </v-avatar>
 

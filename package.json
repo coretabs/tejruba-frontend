@@ -1,40 +1,33 @@
 {
-  "name": "django-vue",
+  "name": "Tejruba__frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "postinstall": "yarn build"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "register-service-worker": "^1.0.0",
-    "vue": "^2.5.17",
+    "core-js": "^2.6.5",
+    "vue": "^2.6.10",
     "vue-quill-editor": "^3.0.6",
-    "vue-router": "^3.0.1",
-    "vuetify": "^1.3.5",
-    "vuex": "^3.1.1"
+    "vue-router": "^3.0.3",
+    "vuetify": "^1.5.14",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.0",
-    "@vue/cli-plugin-babel": "^3.0.5",
-    "@vue/cli-plugin-eslint": "^3.0.5",
-    "@vue/cli-plugin-pwa": "^3.0.5",
-    "@vue/cli-service": "^3.0.5",
-    "node-sass": "^4.12.0",
+    "@fortawesome/fontawesome-free": "^5.8.2",
+    "@vue/cli-plugin-babel": "^3.7.0",
+    "@vue/cli-plugin-eslint": "^3.7.0",
+    "@vue/cli-service": "^3.7.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
-    "vue-cli-plugin-vuetify": "^0.4.5",
-    "vue-template-compiler": "^2.5.17",
-    "vuetify-loader": "^1.0.5"
-  },
-  "babel": {
-    "presets": [
-      "@vue/app"
-    ]
+    "style-resources-loader": "^1.2.1",
+    "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
     "root": true,
@@ -43,7 +36,7 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "@vue/prettier"
     ],
     "rules": {},
     "parserOptions": {
@@ -57,7 +50,6 @@
   },
   "browserslist": [
     "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
+    "last 2 versions"
   ]
 }

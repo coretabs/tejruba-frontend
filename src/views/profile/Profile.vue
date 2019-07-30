@@ -20,7 +20,7 @@
       <v-layout column justify-center align-center class="pt-4">
         <v-avatar class="elevation-10" size="95" color="gey">
           <img
-            src="../../assets/img/avatar.png"
+            src="../../assets/avatar.png"
             alt="alt">
         </v-avatar>
         <div class="white--text mt-3">

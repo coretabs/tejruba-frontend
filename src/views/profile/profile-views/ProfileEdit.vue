@@ -2,7 +2,7 @@
     <div class="profileEdit">
         <v-container color="white" class="mb-5">  
                 <v-avatar size="100" class=" mt-2 elevation-10">
-                    <img src="../../../assets/img/avatar.png" class=" relative" alt="alt">
+                    <img src="../../../assets/avatar.png" class=" relative" alt="alt">
                     <div class="overaly">
                         <v-icon dark>fas fa-upload</v-icon>
                     </div>

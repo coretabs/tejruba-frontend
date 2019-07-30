@@ -1,14 +1,13 @@
-import Vue from 'vue'
-// import '@/plugins/vuetify'
-import App from '@/App.vue'
-import router from '@/router'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
 import store from "./store";
 
 import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css' 
+import 'vuetify/dist/vuetify.min.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 
-Vue.use(Vuetify, {
+ Vue.use(Vuetify, {
   iconfont: 'fa',
   rtl: true,
   // #475bd0 , #4f98e8 , #19006c,#3f1ab8
@@ -20,18 +19,10 @@ Vue.use(Vuetify, {
     success:'#4caf50'
   },
 })
+Vue.config.productionTip = false;
 
-import $backend from '@/backend'
-Vue.prototype.$backend = $backend
-Vue.config.productionTip = false
-
-
-// Vue.use(VueRouter)
-
-const vue = new Vue({
+new Vue({
   router,
   store,
   render: h => h(App)
-})
-
-vue.$mount('#app')
+}).$mount("#app");

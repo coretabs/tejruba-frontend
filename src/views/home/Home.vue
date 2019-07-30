@@ -13,7 +13,7 @@
             <v-img src="https://images.unsplash.com/photo-1563714272638-882a6309ba7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" aspect-ratio="2.75">
               <v-layout justify-start>
                 <v-avatar class="box-shadow pa-3 ma-2" size="40" color="gray">
-                  <img class="elevation-15" src="../../assets/img/avatar.png" alt="alt">
+                  <img class="elevation-15" src="../../assets/avatar.png" alt="alt">
                 </v-avatar>
               </v-layout>
             </v-img>
