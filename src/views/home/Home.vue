@@ -8,9 +8,10 @@
 
     <v-container class="pt-0  mb-5">
       <v-layout column wrap>
-        <v-flex ms12 class="my-3">
-          <v-card class="elevation-20 article_card" router to="/postPage">
-            <v-img src="https://images.unsplash.com/photo-1563714272638-882a6309ba7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" aspect-ratio="2.75">
+        <v-flex ms12 class="mt-3 mb-0"  v-for="tejruba in altejarub"   :key="tejruba.postID">
+          <v-card  class="elevation-20 article_card"
+           router :to="`/postPage/${tejruba.postID}`">
+            <v-img :src="tejruba.postImg" aspect-ratio="2.75">
               <v-layout justify-start>
                 <v-avatar class="box-shadow pa-3 ma-2" size="40" color="gray">
                   <img class="elevation-15" src="../../assets/img/avatar.png" alt="alt">
@@ -20,11 +21,11 @@
 
             <v-card-title primary-title class="pb-0 text-xs-right">
               <div>
-                <h1 ma-0>كيف أصبحت طبيبا مطورا </h1>
+                <h2 class="" ma-0>{{ tejruba.postTitle }}</h2>
               </div>
             </v-card-title>
             <v-card-text class="pt-2">
-              <p class="post-text text-xs-right mb-0 body-2"> خمس اسطر تحتوي على نص مقصوصمن الاصلي الذي يتحدث فيه الكاتب عن
+              <p class="post-text text-xs-right mb-0 caption"> خمس اسطر تحتوي على نص مقصوصمن الاصلي الذي يتحدث فيه الكاتب عن
                 هذا الموضوع حيث ينقل تجربته للعامه للاستفاده منها خمس اسطر تحتوي على نص مقصوصمن الاصلي الذي يتحدث فيه
                 الكاتب عن هذا الموضوع </p>
             </v-card-text>
@@ -49,6 +50,7 @@
 
 <script>
   import categoriesList from "../../components/CategoriesList.vue"
+import { mapGetters } from 'vuex'
 
   export default {
     name: "home",
@@ -56,7 +58,10 @@
       categoriesList,
     },
 
-    
+    computed:{
+        ...mapGetters(['altejarub'])
+    },
+
     methods: {
       test: function () {
         console.log(store)

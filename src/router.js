@@ -34,7 +34,7 @@ export default new Router({
 
     //remove --------
     {
-      path: "/postPage",
+      path: "/postPage/:id",
       name: "تجربه",
       component: singlePostPage
     },
