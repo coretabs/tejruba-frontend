@@ -8,10 +8,21 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from .api.views import index_view, MessageViewSet
+from rest_framework_swagger.views import get_swagger_view
+
+from .api.views import index_view, UserViewSet, TagViewSet, TujrubaViewSet, CommentViewSet, ProfileViewSet #UserLoginAPIView
 
 router = routers.DefaultRouter()
-router.register('messages', MessageViewSet)
+router.register('users', UserViewSet)
+router.register('tag', TagViewSet)
+router.register('tujruba', TujrubaViewSet)
+router.register('comment', CommentViewSet)
+router.register('profile', ProfileViewSet)
+
+
+
+
+
 
 urlpatterns = [
 
@@ -23,6 +34,24 @@ urlpatterns = [
 
     # http://localhost:8000/api/admin/
     path('api/admin/', admin.site.urls),
+
+ 
+
+    path('accounts/', include('allauth.urls')),
+
+
+    #http://localhost:8000/rest-auth/user/ & login/ & logout/ & password/change/ & password/reset/confirm/
+    path('rest-auth/', include('rest_auth.urls')),
+
+
+    #http://localhost:8000/rest-auth/registration/  & rest-auth/registration/verify-email/ 
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+
+    #http://localhost:8000/test-all/ for test all API 
+    path('test-all/', get_swagger_view(title='API Docs'), name='api_docs')
+
+
+
 ]
 
 
