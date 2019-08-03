@@ -1,24 +1,30 @@
 @import '../tools';
 
-.clipped-header{
-    @include clipped_header_circle (50vh , 100vw,100% ,60%);
- }
- 
- 
-   .ql-editor {
-     height: 73vh;
-     font-size: 15px;
-     border:7px solid #e8e8e8;
-     border-radius: 5px;
-     overflow: auto;
-     padding: 10px;
-     text-align: right;
-     font-family: 'Droid Arabic Kufi', serif;
-     background: #ffffff;
-   }
-   .publish {
-     border-radius:3px; 
-     width: 150px;
-     text-align: center;
-    @include app_gradient (-200deg , 0% , 85%);
-   }
+.clipped-header {
+  @include clipped_header_circle (50vh, 100vw, 100%, 60%);
+}
+
+.ql-editor {
+  font-size: 16px;
+  overflow: auto;
+  padding: 5px;
+  // text-align: right;
+}
+
+.publish {
+  border-radius: 3px;
+  width: 150px;
+  text-align: center;
+  @include app_gradient (-200deg, 0%, 85%);
+}
+
+#editorQuill {
+  height: 73vh;
+  border-radius: 5px;
+  padding: 5px;
+  background: #ffffff;
+  border: 7px solid #e8e8e8;
+
+
+
+}

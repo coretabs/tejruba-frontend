@@ -36,13 +36,13 @@
 
     <!-- editor -->
 
-    <quill-editor v-model="content" class="editor-example" ref="myTextEditor" :options="editorOption"> </quill-editor>
+    <quill-editor v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption"> </quill-editor>
 
     <!-- control -->
     <v-layout row wrap class="mb-5">
       <v-btn @click="test()"> حفظ </v-btn>
       <v-spacer></v-spacer>
-      <v-btn class="publish elevation-15" dark> نشر </v-btn>
+      <v-btn class="publish elevation-15" @click="publish()" dark> نشر </v-btn>
     </v-layout>
   </v-container>
 </template>
@@ -130,16 +130,6 @@
       },
     },
 
-    methods: {
-      publish: function () {
-        this.$store.commit()
-      },
-      test: function () {
-        // console.log(this.$refs.myTextEditor.quill.getContents())
-        console.log(this.$store.state.editorData.postDelta);
-
-      }
-    },
     computed: {
       ...mapGetters(['delta', 'contents', 'editorData']),
 
@@ -161,7 +151,20 @@
           this.$store.commit('setPostCategory', value)
         },
       },
-    }
+    },
+
+     methods: {
+      publish: function () {
+        this.$store.commit('setPostId');
+        this.$store.commit('publishPost');
+        this.$router.push('/');
+        },
+      test: function () {
+        // console.log(this.$refs.myTextEditor.quill.getContents())
+        console.log(this.$store.state.editorData.postDelta);
+
+      }
+    },
   }
 </script>
 

@@ -4,7 +4,7 @@
     left: 0;
     height: ($height);
     width: ($width);
-    z-index: 0;
+    z-index: -1;
 
     @include clipped_circle ($clip_Y, $clip_center);
     
