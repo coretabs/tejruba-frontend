@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth.registration',
     'rest_auth',
-    'backend.api',
+    'backend.accounts',
+    'backend.experiences',
+
     'rest_framework_swagger',
 ]
 
@@ -163,9 +165,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_FORMS = {
 
-    'signup': 'backend.api.forms.MyCustomSignupForm',
+    'signup': 'backend.accounts.forms.MyCustomSignupForm',
     #'login': 'backend.api.forms.MyCustomLoginForm',
 
 }
-
+#ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGOUT_ON_GET = True
+REST_AUTH_REGISTER_SERIALIZERS = {
+        'REGISTER_SERIALIZER': 'backend.accounts.api.serializers.RegisterSerializer',
+}
 

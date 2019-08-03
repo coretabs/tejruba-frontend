@@ -9,8 +9,10 @@ from django.urls import path, include
 from rest_framework import routers
 
 from rest_framework_swagger.views import get_swagger_view
+from backend.accounts.views import UserViewSet, ProfileViewSet
+from backend.experiences.views import TagViewSet, TujrubaViewSet, CommentViewSet
 
-from .api.views import index_view, UserViewSet, TagViewSet, TujrubaViewSet, CommentViewSet, ProfileViewSet #UserLoginAPIView
+
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
@@ -27,7 +29,7 @@ router.register('profile', ProfileViewSet)
 urlpatterns = [
 
     # http://localhost:8000/
-    path('', index_view, name='index'),
+    #path('', index_view, name='index'),
 
     # http://localhost:8000/api/<router-viewsets>
     path('api/', include(router.urls)),
