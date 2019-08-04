@@ -1,8 +1,11 @@
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 
 from backend.accounts.models import Profile
 from django.contrib.auth.models import User
+
+from django.contrib.auth import get_user_model, authenticate
+from django.utils.translation import ugettext_lazy as _
 
 
 from allauth.account import app_settings as allauth_settings
@@ -10,8 +13,8 @@ from allauth.utils import email_address_exists
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 
+from django.conf import settings
 
-from rest_auth.views import LoginView
 
 
 class RegisterSerializer(serializers.Serializer):
@@ -52,6 +55,38 @@ class RegisterSerializer(serializers.Serializer):
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         return user
+
+
+
+class LoginSerializer(serializers.Serializer):
+
+    username_or_email = serializers.CharField(required=True)
+    password = serializers.CharField(style={'input_type': 'password'})
+
+
+
+    def validate(self, data):
+        username_or_email = data.get('username_or_email', '')
+        password = data.get('password', '')
+
+        user_obj = User.objects.filter(email=data.get("username_or_email")).first() or User.objects.filter(username=data.get("username_or_email")).first()
+        if username_or_email and password:
+
+            user = authenticate(username=user_obj.username, password=password)
+
+            if user:
+                if user.is_active:
+                    data["user"] = user
+            else:
+                msg = 'Unable to log in with provided credentials.'
+                raise exceptions.ValidationError(msg)
+
+        else:
+            msg = 'Must include either "email" and "password".'
+            raise exceptions.ValidationError(msg)
+        return data
+
+
 
 
 
