@@ -169,7 +169,7 @@ ACCOUNT_FORMS = {
     #'login': 'backend.api.forms.MyCustomLoginForm',
 
 }
-#ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_LOGOUT_ON_GET = True
 REST_AUTH_REGISTER_SERIALIZERS = {
         'REGISTER_SERIALIZER': 'backend.accounts.api.serializers.RegisterSerializer',
