@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from .models import Profile
-from backend.accounts.api.serializers import UserSerializer, ProfileSerializer
+from accounts.api.serializers import UserSerializer, ProfileSerializer
 from django.contrib.auth.models import User
 #from rest_framework.permissions import AllowAny, IsAuthenticated
 
