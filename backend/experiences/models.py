@@ -6,6 +6,9 @@ from django.utils import timezone
 class Tag(models.Model):
     title = models.CharField(max_length=150) 
 
+    class Meta:
+        ordering = ("title", )
+
     def __str__(self):
         return self.title        
 
@@ -13,22 +16,24 @@ class Tag(models.Model):
 class Experience(models.Model):
     title = models.CharField(max_length=150) 
     content = models.TextField(max_length=999)
-    created = models.DateTimeField(auto_now_add=True)
-    photo = models.ImageField(upload_to = 'media/images')
+    created = models.DateTimeField(default=timezone.now)
+    modified = models.DateTimeField(auto_now=True)
+    photo = models.ImageField(upload_to = 'media/images', blank=True)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="experiences")
+    tags = models.ManyToManyField(Tag, related_name="experiences")
     
     def __str__(self):
-        return f"<Experience: {self.title}>"
+        return self.title
 
 
 class Comment(models.Model):
-    tujruba = models.ForeignKey(Experience, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField(max_length=300)
-    created_date = models.DateTimeField(default=timezone.now)
-    likes = models.IntegerField()
+    content = models.TextField(max_length=300)
+    created = models.DateTimeField(default=timezone.now )
+    modified = models.DateTimeField(auto_now=True)
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="comments")
+    
     def __str__(self):
-        return self.user.username + ' on ' + self.tujruba.title
+        return self.user.username + ' on ' + self.experience.title
