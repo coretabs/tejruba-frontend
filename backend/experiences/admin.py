@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Tag, Tujruba, Comment
+from .models import Tag, Experience, Comment
 
 admin.site.register(Tag)
-admin.site.register(Tujruba)
+admin.site.register(Experience)
 admin.site.register(Comment)
 
