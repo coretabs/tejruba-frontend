@@ -4,12 +4,12 @@
     <!-- <div class="gradient"></div> -->
     <div class="clipped-header hidden-md-and-up"></div>
 
-    <categories-list />
+    <categories-list class="mb-2" />
 
     <v-container class="pt-0  mb-5">
-      <v-layout column wrap>
-        <v-flex ms12 class="mt-3 mb-0"  v-for="tejruba in altejarub"   :key="tejruba.postID">
-          <v-card  class="elevation-20 article_card"
+      <div class="cardsHolder">
+        <v-flex ms12  class="mt-1 mb-3" v-for="tejruba in altejarub"   :key="tejruba.postID">
+          <v-card  class="elevation-20 article_card mt-0"
            router :to="`/postPage/${tejruba.postID}`">
             <v-img :src="tejruba.postImg" aspect-ratio="2.75">
               <v-layout justify-start>
@@ -25,9 +25,7 @@
               </div>
             </v-card-title>
             <v-card-text class="pt-2">
-              <p class="post-text text-xs-right mb-0 caption"> خمس اسطر تحتوي على نص مقصوصمن الاصلي الذي يتحدث فيه الكاتب عن
-                هذا الموضوع حيث ينقل تجربته للعامه للاستفاده منها خمس اسطر تحتوي على نص مقصوصمن الاصلي الذي يتحدث فيه
-                الكاتب عن هذا الموضوع </p>
+              <p class=" text-xs-right mb-0 caption"> </p>
             </v-card-text>
             <v-divider></v-divider>
             <v-layout row align-center class="py-0">
@@ -42,7 +40,8 @@
             </v-layout>
           </v-card>
         </v-flex>
-      </v-layout>
+        
+      </div>
     </v-container>
   </div>
 </template>
