@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from  experiences.models import Experience, Tag, Comment
-from  experiences.serializers import ExperienceSerializer, TagSerializer, CommentSerializer
+from  experiences.models import Experience, Tag
+from  experiences.serializers import ExperienceSerializer, TagSerializer
 
 
 class ExperienceList(APIView):
