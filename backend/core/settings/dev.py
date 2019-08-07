@@ -170,15 +170,18 @@ ACCOUNT_FORMS = {
 
 }
 
-
 ACCOUNT_LOGOUT_ON_GET = True
+
 REST_AUTH_REGISTER_SERIALIZERS = {
         'REGISTER_SERIALIZER': 'backend.accounts.api.serializers.RegisterSerializer',
 }
 
 REST_AUTH_SERIALIZERS = {
-
     'LOGIN_SERIALIZER': 'backend.accounts.api.serializers.LoginSerializer',
-
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
