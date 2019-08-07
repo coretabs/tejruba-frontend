@@ -36,4 +36,4 @@ class Comment(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name="comments")
     
     def __str__(self):
-        return self.user.username + ' on ' + self.experience.title
+        return f"{self.id} by {self.user}"
