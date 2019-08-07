@@ -1,5 +1,5 @@
 <template>
-         <v-bottom-nav         
+         <v-bottom-nav       
       color="primary"
       active.sync="bottomNav"
       :value="true"
