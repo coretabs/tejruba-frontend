@@ -37,9 +37,10 @@ urlpatterns = [
     # http://localhost:8000/api/admin/
     path('admin/', admin.site.urls),
 
- 
+    path('experiences/', include('experiences.urls')),
+    path('accounts/', include('accounts.urls')),
+    # path('api-auth/', include('rest_framework.urls')),
 
-    path('experiences/', include('experiences.urls'))
     # path('accounts/', include('allauth.urls')),
 
 
