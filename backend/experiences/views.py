@@ -25,7 +25,7 @@ class ExperienceList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ExperiencesDetail(APIView):
+class ExperienceDetail(APIView):
     """
     Retrieve, update or delete a experience.
     """
