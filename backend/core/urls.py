@@ -39,6 +39,7 @@ urlpatterns = [
 
  
 
+    path('experiences/', include('experiences.urls'))
     # path('accounts/', include('allauth.urls')),
 
 
