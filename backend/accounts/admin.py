@@ -1,7 +1,16 @@
 from django.contrib import admin
-from .models import Profile
 
-admin.site.register(Profile)
+from .models import Profile, SocialAccount
 
 
-# Register your models here.
+class SocialAccountInline(admin.TabularInline):
+    model = SocialAccount
+
+
+
+class ProfileAdmin(admin.ModelAdmin):
+    inlines = [
+        SocialAccountInline,
+    ]
+
+admin.site.register(Profile, ProfileAdmin)
