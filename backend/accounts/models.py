@@ -1,36 +1,43 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.dispatch import receiver
 
-# Create your models here.
+
+class SocialAccount(models.Model):
+    ACCOUNT_TYPES = (
+        ('f', 'Facebook'),
+        ('t', 'Twitter'),
+        ('g', 'Github'),
+        ('o', 'Other')
+    )
+    account_url = models.URLField(max_length=200, default='', blank=True)
+    account_type = models.CharField(choices=ACCOUNT_TYPES, default="o")
+
+    profile = models.ForeignKey(User, on_delete=models.CASCADE, related_name="accounts")
 
 
 class Profile(models.Model):
-    photo = models.ImageField(upload_to = 'images', blank=True)
-    name = models.CharField(max_length=150, blank=True)
-    bio = models.TextField(default='', blank=True)
-    job = models.CharField(max_length=150, default='', blank=True)
-    age = models.CharField(max_length=150, default='', blank=True)
-    country = models.CharField(max_length=150, default='', blank=True)
-    facebook = models.URLField(max_length=200, default='', blank=True)
-    instagram = models.URLField(max_length=200, default='', blank=True)
-    twitter = models.URLField(max_length=200, default='', blank=True)
-    personal_website = models.URLField(max_length=200, default='', blank=True)
-    #followed_tag_ids
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    job = models.CharField(max_length=30, blank=True)
+    personal_website = models.URLField(max_length=200, blank=True)
+    #photo = models.ImageField(upload_to = 'images', blank=True)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
 
     def __str__(self):
-
         return self.user.username
 
-    def save(self, *args, **kwargs):
 
-        self.name = self.user.first_name + ' ' + self.user.last_name
-        super().save(*args, **kwargs)
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
 
-def create_profile(sender, **kwarg):
 
-    if kwarg['created']:
-        user_profile = Profile.objects.create(user=kwarg['instance'])
-
-post_save.connect(create_profile, sender=User)
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
