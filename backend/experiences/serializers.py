@@ -1,12 +1,18 @@
-# from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework import serializers
 
-# from experiences.models import Tag, Tujruba, Comment
+from .models import Tag, Experience, Comment
 
 
-# class TagSerializer(HyperlinkedModelSerializer):
-#     class Meta:
-#         model = Tag
-#         fields = ('title', 'pk')
+class ExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Experience
+        fields = ['title', 'content', 'user', 'tags']
+
+
+class TagSerializer(serializers.ModelSerializer):
+     class Meta:
+         model = Tag
+         fields = ['title', 'pk']
 
 
 
@@ -35,7 +41,3 @@
 #          	'created_date',
 #          	'likes',
 #          	'pk')
-
-
-
-
