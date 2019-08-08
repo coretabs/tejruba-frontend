@@ -27,7 +27,7 @@ class Experience(models.Model):
         return self.title
 
 
-class Comment(models.Model):
+class Comment(models.Model):    
     content = models.TextField(max_length=300)
     created = models.DateTimeField(default=timezone.now )
     modified = models.DateTimeField(auto_now=True)

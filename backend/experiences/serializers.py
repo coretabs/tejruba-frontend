@@ -1,20 +1,25 @@
 from rest_framework import serializers
 
+
 from .models import Tag, Experience, Comment
-
-
-class ExperienceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Experience
-        fields = ['title', 'content', 'user', 'tags']
 
 
 class TagSerializer(serializers.ModelSerializer):
      class Meta:
          model = Tag
-         fields = ['title', 'pk']
+         fields = ['id', 'title']
 
 
+class ExperienceSerializer(serializers.ModelSerializer):
+    user = serializers.HyperlinkedRelatedField(view_name="accounts:UserDetail", read_only=True)
+    user_id = serializers.PrimaryKeyRelatedField(read_only=True)
+    tags = TagSerializer(many=True)
+
+    class Meta:
+        model = Experience
+        fields = ['id', 'title', 'content', 'created', 'modified', 'user', 'user_id', 'tags']
+        read_only_fields = ['created', 'modified', 'user_link', 'user', 'user_id', 'tags']
+        
 
 # class TujrubaSerializer(HyperlinkedModelSerializer):
 #     class Meta:
@@ -27,9 +32,6 @@ class TagSerializer(serializers.ModelSerializer):
 #             'stars',
 #             'likes',
 #             'user')
-
-
-
 
 
 # class CommentSerializer(HyperlinkedModelSerializer):

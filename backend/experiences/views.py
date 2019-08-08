@@ -3,18 +3,36 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import permissions
 
 from  experiences.models import Experience, Tag
 from  experiences.serializers import ExperienceSerializer, TagSerializer
 
 
-class ExperienceList(APIView):
+class ExperienceList(APIView):  
     """
     List all experiences, or create a new experience.
     """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get(self, request, format=None):
-        experiences = Experience.objects.all()
-        serializer = ExperienceSerializer(experiences, many=True)
+        user_id = request.GET.get('user', None)
+        tag = request.GET.get('tag', None)
+        sort_by = request.GET.get('sort_by', None)
+        
+        qs = Experience.objects.all()
+
+        if user_id:
+            qs = qs.filter(user_id=user_id)
+
+        if tag:
+            qs = qs.filter(tags__title__contains=tag)
+
+        if sort_by:
+            qs = qs.order_by('-created')
+
+        request_context = {'request': request}
+        serializer = ExperienceSerializer(qs, context=request_context, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -29,6 +47,8 @@ class ExperienceDetail(APIView):
     """
     Retrieve, update or delete a experience.
     """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get_object(self, pk):
         try:
             return Experience.objects.get(pk=pk)
@@ -36,8 +56,14 @@ class ExperienceDetail(APIView):
             raise Http404
 
     def get(self, request, pk, format=None):
+        user = request.GET.get('user', None)
+        tag = request.GET.get('tag', None)
+        sort_by = request.GET.get('sort_by', None)
+
+        # print(request.GET)
+        # print(tag)
         experience = self.get_object(pk)
-        serializer = ExperienceSerializer(experience)
+        serializer = ExperienceSerializer(experience, context={'request': request,})
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
@@ -52,6 +78,26 @@ class ExperienceDetail(APIView):
         experience = self.get_object(pk)
         experience.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+class TagList(APIView):  
+    """
+    List all experiences, or create a new experience.
+    """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get(self, request, format=None):
+        tags = Tag.objects.all()
+        serializer = TagSerializer(tags, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = TagSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # from rest_framework import viewsets
