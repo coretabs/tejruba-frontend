@@ -9,14 +9,13 @@
             <v-layout column class="full py-0" align-center justify-center>
                 <v-spacer></v-spacer>
 
-                <v-form>
-                    <v-text-field name="name" label="الاسم"></v-text-field>
-                    <v-text-field
-                        label="الايميل"
-                    ></v-text-field>
-                    <v-text-field name="password" label=" كلمه السر " hint="At least 8 characters" min="8"></v-text-field>
-                    <v-text-field name="password" label="  أعد كلمه السر " hint="At least 8 characters" min="8"></v-text-field>
-                    <v-btn round class="btn-color white--text my-4 elevation-11">استمرار</v-btn>
+                <v-form ref="signUpForm">
+                    <v-text-field name="name" label="الاسم" :rules="nameRules" required></v-text-field>
+                    <v-text-field name="email" label="الايميل" :rules="emailRules" required></v-text-field>
+                    <v-text-field name="password" label=" كلمه السر " :rules="passwordRules" required>
+                    </v-text-field>
+                    <v-text-field name="password" label="  أعد كلمه السر" :rules="passwordRules1" required></v-text-field>
+                    <v-btn round @click="signUp" class="btn-color white--text my-4 elevation-11">استمرار</v-btn>
                 </v-form>
 
                 <v-spacer></v-spacer>
@@ -31,10 +30,42 @@
 
 <script>
     export default {
+        data() {
+            return {
+                name: '',
+                nameRules: [
+                    v => !!v || 'قم بإدخال إسم المستخدم ',
+                    v => (v && v.length <= 10) || ' أسم المستخدم على الاقل 10 أحرف',
+                ],
+                email: '',
+                emailRules: [
+                    v => !!v || ' يجب إدخال البريدالإلكترني',
+                    v => /.+@.+\..+/.test(v) || 'يجب إدخال بريد إلكتروني صالح',
+                ],
+                password: '',
+                passwordRules: [
+                    v => !!v || 'قم بإدخال كلمه المرور',
+                    v => (v && v.length <= 8) || 'كلمه المرور على الاقل 8 أحرف',
+                ],
+                password1: '',
 
+                passwordRules1: [
+                    v => !!v || ' أعد إدخال كلمه المرور',
+                    v => (v && v.length <= 8) || 'على الاقل 8 أحرف',
+                ],
+
+            }
+        },
+        methods: {
+            signUp: function(){
+                if(this.$refs.signUpForm.validate()){
+                    console.log('success');
+                }
+            }
+        }
     }
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/views/signup/SignUp';
+    @import '../../styles/views/signup/SignUp';
 </style>

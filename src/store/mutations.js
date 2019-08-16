@@ -13,6 +13,9 @@ export default {
     setPostId(state) {
       state.editorData.postID = state.altjarub.length;
     },  
+    setPostImg(state ,payload) {
+      state.editorData.postImg = payload;
+    },  
     setPostTitle(state, payload) {
       state.editorData.postTitle = payload;
     },  

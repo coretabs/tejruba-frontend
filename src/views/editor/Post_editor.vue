@@ -12,11 +12,44 @@
     <!-- toolbar -->
 
     <v-layout row justify-center align-center wrap>
-      <v-btn router to="/signin">
+      <v-btn @click="uploadDialog = true">
         <v-icon small right class="primary--text  ml-2">fas fa-upload</v-icon>
-        <span> رفع صوره </span>
+        <span> صوره </span>
       </v-btn>
 
+      <!-- dialog -->
+      <v-dialog v-model="uploadDialog" max-width="500px">
+        <v-card>
+          <v-card-title>
+            إختيار صوره
+          </v-card-title>
+          <v-card-text>
+            <v-layout column wrap align-start>
+              <v-flex shrink>
+                <v-btn router to="/signin" class="mb-3">
+                  <v-icon small right @click="uploadDialog = true" class="primary--text">fas fa-upload</v-icon>
+                  <span> إختيار صوره من الجهاز </span>
+                </v-btn>
+              </v-flex>
+              <v-divider class="mx-4" dark></v-divider>
+              <v-flex>
+                <v-text-field solo append-icon="fas fa-link" label="عنوان الصوره" placeholder="لصق رابط الصوره"
+                  v-model="imgUrl"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn class="publish ml-3" color="success" text @click="save_img_url">
+              حفظ
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="white darken-1" @click="uploadDialog = false">
+              إغلاق
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <!-- dialog -->
       <v-btn router to="/signup">
         <v-icon small right class="primary--text ml-2">fas fa-search</v-icon>
         <span>unsplash</span>
@@ -27,11 +60,19 @@
       </v-btn>
     </v-layout>
 
-    <v-text-field box dark class="white--text mt-2" name="name" v-model="postTitle" label="عنوان التجربه ">
+    <v-text-field 
+    box color="gray"
+     dark 
+     class="white--text mt-2" 
+     name="name" 
+     label="عنوان التجربه" 
+     v-model="postTitle"
+      :rules="[v => !!v || 'قم بإدخال عنوان للتجربه']"
+      required>
     </v-text-field>
 
-    <v-select :items="categories" v-model="selectedCategory" label="إختر فئه التجربه" chips solo
-      append-icon="fas fa-filter" clearable>
+    <v-select :items="categories" :rules="[v => !!v || 'يجب إختيار فئه للتجربه']"
+     v-model="selectedCategory"  label="إختر فئه التجربه" chips solo clearable required>
     </v-select>
 
     <!-- editor -->
@@ -66,6 +107,8 @@
 
         content: '',
         isMounted: false,
+        uploadDialog: false,
+        imgUrl: '',
 
         categories: [
           'رياضه',
@@ -77,6 +120,7 @@
           'ترفيه',
           'برمجه'
         ],
+
 
         editorOption: {
           theme: 'bubble',
@@ -150,15 +194,26 @@
         set(value) {
           this.$store.commit('setPostCategory', value)
         },
+        // imgUrl: {
+        //   get() {
+        //     return this.$store.state.editorData.postImg
+        //   },
+        //   set(value) {
+        //     this.$store.commit('setPostImg', value)
+        //   },
       },
     },
 
-     methods: {
+    methods: {
       publish: function () {
         this.$store.commit('setPostId');
         this.$store.commit('publishPost');
         this.$router.push('/');
-        },
+      },
+      save_img_url: function () {
+        this.$store.commit('setPostImg', this.imgUrl)
+        this.uploadDialog = false
+      },
       test: function () {
         // console.log(this.$refs.myTextEditor.quill.getContents())
         console.log(this.$store.state.editorData.postDelta);
