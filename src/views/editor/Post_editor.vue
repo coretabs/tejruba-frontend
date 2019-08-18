@@ -34,12 +34,12 @@
               <v-divider class="mx-4" dark></v-divider>
               <v-flex>
                 <v-text-field solo append-icon="fas fa-link" label="عنوان الصوره" placeholder="لصق رابط الصوره"
-                  v-model="imgUrl"></v-text-field>
+                  v-model="ImgUrl"></v-text-field>
               </v-flex>
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="publish ml-3" color="success" text @click="save_img_url">
+            <v-btn class="publish ml-3" color="success" text @click="save">
               حفظ
             </v-btn>
             <v-spacer></v-spacer>
@@ -60,11 +60,11 @@
       </v-btn>
     </v-layout>
     <v-form ref="editorForm">
-      <v-text-field box color="gray" dark class="white--text mt-2" name="name" label="عنوان التجربه" v-model="postTitle"
+      <v-text-field box color="gray" dark class="white--text mt-2" name="name" label="عنوان التجربه" v-model="Title"
         :rules="[v => !!v || 'قم بإدخال عنوان للتجربه']" required>
       </v-text-field>
 
-      <v-select :items="categories" :rules="[v => !!v || 'يجب إختيار فئه للتجربه']" v-model="selectedCategory"
+      <v-select :items="categories" :rules="[v => !!v || 'يجب إختيار فئه للتجربه']" v-model="Category"
         label="إختر فئه التجربه" chips solo clearable required>
       </v-select>
 
@@ -91,6 +91,7 @@
   import {
     mapGetters
   } from 'vuex'
+  import moment from 'moment'
   export default {
     components: {
       quillEditor
@@ -100,7 +101,15 @@
         content: '',
         isMounted: false,
         uploadDialog: false,
-        imgUrl: '',
+
+        ID: '',
+        ImgUrl: '',
+        Title: '',
+        Category: '',
+        Delta: '',
+        Hearts: '',
+        Likes: '',
+        Stars: '',
 
         categories: [
           'رياضه',
@@ -157,8 +166,8 @@
     watch: {
       content(val) {
         if (!this.isMounted) {
-          // this.$store.commit('setDelta', this.$refs.myTextEditor.quill.getContents())
-          this.$store.commit('setPostDelta', this.$refs.myTextEditor.quill.getContents())
+          this.$store.commit('setDelta', this.$refs.myTextEditor.quill.getContents())
+          // this.$store.commit('setPostDelta', this.$refs.myTextEditor.quill.getContents()/
           // this.$store.commit('setPostContent')
         }
         this.$store.commit('setContent', val)
@@ -168,33 +177,27 @@
 
     computed: {
       ...mapGetters(['delta', 'contents', 'editorData']),
-
-      postTitle: {
-        get() {
-          return this.$store.state.editorData.postTitle
-        },
-        set(value) {
-          this.$store.commit('setPostTitle', value)
-        },
-      },
-      selectedCategory: {
-        get() {
-          return this.$store.state.editorData.postCategory
-        },
-        set(value) {
-          this.$store.commit('setPostCategory', value)
-        },
-      },
     },
     methods: {
       publish: function () {
-        this.$store.commit('setPostId');
-        this.$store.commit('publishPost');
+        this.$store.commit('publishPost', {
+          ID: this.$store.state.altjarub.length,
+          Img: this.ImgUrl,
+          Title: this.Title,
+          Category: this.Category,
+          //--
+          Delta: this.delta,
+          //--
+          Date: this.$moment().fromNow(),
+          //--
+          Hearts: this.Hearts,
+          Stars: this.Stars,
+          Likes: this.Likes,
+        });
         this.$router.push('/');
         this.$refs.editorForm.reset();
       },
-      save_img_url: function () {
-        this.$store.commit('setPostImg', this.imgUrl)
+      save: function () {
         this.uploadDialog = false
       },
       test: function () {

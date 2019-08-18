@@ -1,13 +1,13 @@
 <template>
     <div class="pb-4">
         <div class="postImg mb-2 ">
-            <v-img :src="post.postImg" alt="user" aspect-ratio="1.4" height="200"></v-img>
-            <div class="postCategory font-weight-bold mx-3">{{ post.postCategory }}</div>
+            <v-img :src="post.Img" alt="user" aspect-ratio="1.4" height="200"></v-img>
+            <div class="postCategory font-weight-bold mx-3">{{ post.Category }}</div>
         </div>
         <v-container fluid>
 
             <div class="postTitle text-xs-right my-3">
-                <h1>{{ post.postTitle }}</h1>
+                <h1>{{ post.Title }}</h1>
             </div>
 
             <v-layout row align-center class="my-4">
@@ -62,7 +62,7 @@
             post() {
                 const id = parseInt(this.$route.params.id);
                 return this.altejarub.filter(function (tejrba) {
-                    return tejrba.postID === id;
+                    return tejrba.ID === id;
                 })[0];
             }
         },
@@ -71,7 +71,7 @@
         let article = this.$refs.postViewer
         let quill = new Quill(article , {readOnly:true})
         setTimeout(()=>{ 
-        quill.setContents(this.post.postDelta)
+        quill.setContents(this.post.Delta)
         },0)
         // setTimeout(()=>{ this.$refs.postViewer.appendChild(article) },0)
         }
