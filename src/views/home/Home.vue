@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-
     <!-- <div class="gradient"></div> -->
     <div class="clipped-header hidden-md-and-up"></div>
 
@@ -8,7 +7,7 @@
 
     <v-container class="pt-0  mb-5">
       <div class="cardsHolder">
-        <v-flex ms12  class="mt-1 mb-3" v-for="tejruba in altejarub"   :key="tejruba.postID">
+        <v-flex ms12  class="mt-1 mb-3" v-for="tejruba in FilterdExperiences"   :key="tejruba.postID">
           <v-card  class="elevation-20 article_card mt-0"
            router :to="`/postPage/${tejruba.postID}`">
             <v-img :src="tejruba.postImg" aspect-ratio="2.75">
@@ -40,7 +39,6 @@
             </v-layout>
           </v-card>
         </v-flex>
-        
       </div>
     </v-container>
   </div>
@@ -58,7 +56,16 @@ import { mapGetters } from 'vuex'
     },
 
     computed:{
-        ...mapGetters(['altejarub'])
+        ...mapGetters(['altejarub']),
+        FilterdExperiences(){
+          if (this.$store.state.experienceFilterValue){
+          return this.altejarub.filter((exp)=>{
+            return exp.postCategory === this.$store.state.experienceFilterValue;
+          })
+          }else{
+            return this.altejarub
+          }
+        }
     },
 
     methods: {

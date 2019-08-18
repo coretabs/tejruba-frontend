@@ -29,6 +29,6 @@ export default {
 
     //
     publishPost(state){
-      state.altjarub.push(state.editorData);
+      state.altjarub.push({...state.editorData});
     }
 }

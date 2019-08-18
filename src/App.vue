@@ -26,7 +26,6 @@ export default {
     Header,
     catPicker
   }
-  
 }
 </script>
 <style lang="scss">

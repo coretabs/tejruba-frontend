@@ -58,21 +58,16 @@
             return {}
         },
         computed: {
-        ...mapGetters(['delta','editorData']),
-
+        ...mapGetters(['delta','editorData','altejarub']),
             post() {
                 const id = parseInt(this.$route.params.id);
-                return this.$store.state.altjarub.filter(function (tejrba) {
+                return this.altejarub.filter(function (tejrba) {
                     return tejrba.postID === id;
                 })[0];
             }
         },
 
         mounted(){
-        // let article = document.createElement('p')
-        // let quill = new Quill(article , {})
-        // quill.setContents(this.post.postDelta)
-        // setTimeout(()=>{ this.$refs.postViewer.appendChild(article) },0)
         let article = this.$refs.postViewer
         let quill = new Quill(article , {readOnly:true})
         setTimeout(()=>{ 

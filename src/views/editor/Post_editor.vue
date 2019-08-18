@@ -59,27 +59,20 @@
         <v-icon small class="primary--text">fas fa-eye</v-icon>
       </v-btn>
     </v-layout>
+    <v-form ref="editorForm">
+      <v-text-field box color="gray" dark class="white--text mt-2" name="name" label="عنوان التجربه" v-model="postTitle"
+        :rules="[v => !!v || 'قم بإدخال عنوان للتجربه']" required>
+      </v-text-field>
 
-    <v-text-field 
-    box color="gray"
-     dark 
-     class="white--text mt-2" 
-     name="name" 
-     label="عنوان التجربه" 
-     v-model="postTitle"
-      :rules="[v => !!v || 'قم بإدخال عنوان للتجربه']"
-      required>
-    </v-text-field>
+      <v-select :items="categories" :rules="[v => !!v || 'يجب إختيار فئه للتجربه']" v-model="selectedCategory"
+        label="إختر فئه التجربه" chips solo clearable required>
+      </v-select>
 
-    <v-select :items="categories" :rules="[v => !!v || 'يجب إختيار فئه للتجربه']"
-     v-model="selectedCategory"  label="إختر فئه التجربه" chips solo clearable required>
-    </v-select>
+      <!-- editor -->
 
-    <!-- editor -->
+      <quill-editor v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption"> </quill-editor>
 
-    <quill-editor v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption"> </quill-editor>
-
-    <!-- control -->
+    </v-form> <!-- control -->
     <v-layout row wrap class="mb-5">
       <v-btn @click="test()"> حفظ </v-btn>
       <v-spacer></v-spacer>
@@ -104,7 +97,6 @@
     },
     data() {
       return {
-
         content: '',
         isMounted: false,
         uploadDialog: false,
@@ -185,8 +177,6 @@
           this.$store.commit('setPostTitle', value)
         },
       },
-
-
       selectedCategory: {
         get() {
           return this.$store.state.editorData.postCategory
@@ -194,21 +184,14 @@
         set(value) {
           this.$store.commit('setPostCategory', value)
         },
-        // imgUrl: {
-        //   get() {
-        //     return this.$store.state.editorData.postImg
-        //   },
-        //   set(value) {
-        //     this.$store.commit('setPostImg', value)
-        //   },
       },
     },
-
     methods: {
       publish: function () {
         this.$store.commit('setPostId');
         this.$store.commit('publishPost');
         this.$router.push('/');
+        this.$refs.editorForm.reset();
       },
       save_img_url: function () {
         this.$store.commit('setPostImg', this.imgUrl)
