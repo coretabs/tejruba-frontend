@@ -3,10 +3,13 @@ import Vue from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
 import store from "@/store/store"
-
 import Vuetify from 'vuetify'
+import Moment from 'moment'
 import 'vuetify/dist/vuetify.min.css' 
 import '@fortawesome/fontawesome-free/css/all.css'
+
+Moment.locale('ar')
+Vue.prototype.$moment = Moment
 
 Vue.use(Vuetify, {
   iconfont: 'fa',
@@ -20,12 +23,10 @@ Vue.use(Vuetify, {
     success:'#4caf50'
   },
 })
-
+ 
 import $backend from '@/backend'
 Vue.prototype.$backend = $backend
 Vue.config.productionTip = false
-
-
 // Vue.use(VueRouter)
 
 const vue = new Vue({
