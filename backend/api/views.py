@@ -6,7 +6,7 @@ from .models import Message, MessageSerializer
 
 
 # Serve Vue Application
-index_view = never_cache(TemplateView.as_view(template_name='index.html'))
+# index_view = never_cache(TemplateView.as_view(template_name='index.html'))
 
 
 class MessageViewSet(viewsets.ModelViewSet):
