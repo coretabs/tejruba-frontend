@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     
     'backend.api',
+    'backend.api.accounts'
 ]
 
 MIDDLEWARE = [
