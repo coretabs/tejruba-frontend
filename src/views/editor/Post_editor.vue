@@ -70,7 +70,7 @@
 
       <!-- editor -->
 
-      <quill-editor v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption"> </quill-editor>
+      <quill-editor calss="text-justify" v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption"> </quill-editor>
 
     </v-form> <!-- control -->
     <v-layout row wrap class="mb-5">
@@ -107,6 +107,8 @@
         Title: '',
         Category: '',
         Delta: '',
+        content: '',
+        satus:'',
         Hearts: '',
         Likes: '',
         Stars: '',
@@ -167,8 +169,6 @@
       content(val) {
         if (!this.isMounted) {
           this.$store.commit('setDelta', this.$refs.myTextEditor.quill.getContents())
-          // this.$store.commit('setPostDelta', this.$refs.myTextEditor.quill.getContents()/
-          // this.$store.commit('setPostContent')
         }
         this.$store.commit('setContent', val)
         this.isMounted = false
@@ -176,7 +176,7 @@
     },
 
     computed: {
-      ...mapGetters(['delta', 'contents', 'editorData']),
+      ...mapGetters(['delta', 'contents', 'editorData', 'textContent']),
     },
     methods: {
       publish: function () {
@@ -187,6 +187,7 @@
           Category: this.Category,
           //--
           Delta: this.delta,
+          content:this.textContent,
           //--
           Date: this.$moment().fromNow(),
           //--
@@ -196,6 +197,7 @@
         });
         this.$router.push('/');
         this.$refs.editorForm.reset();
+
       },
       save: function () {
         this.uploadDialog = false
