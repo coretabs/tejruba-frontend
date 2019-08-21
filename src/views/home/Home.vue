@@ -23,9 +23,7 @@
               </div>
             </v-card-title>
             <v-card-text class="pt-0">
-              <p class="text-justify  row-4 text-xs-right mb-0 caption">
-                {{ tejruba.Content | truncate }}
-              </p>
+              <p class="row-4 text-xs-right mb-0 caption"> {{ tejruba.content | truncate }} </p>
             </v-card-text>
             <div class="caption ml-0 mb-2 mx-3 text-xs-right">
               {{ tejruba.Date }}
@@ -98,10 +96,12 @@
     filters: {
       truncate(value) {
         if (!value) return ''
+        value = value.toString()
       var content = value.trim()
           content = content.split(' ').slice(0, 30)
           content = content.join(' ')
           value = content
+          console.log('...>>>  ',value)
         return value
       },
     }
