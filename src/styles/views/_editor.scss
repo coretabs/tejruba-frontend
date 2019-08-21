@@ -24,7 +24,9 @@
   padding: 5px;
   background: #ffffff;
   border: 7px solid #e8e8e8;
-
-
-
+}
+.snackbar_error{
+@media (max-width: 600px) {
+    margin-bottom: 56px !important;
+  }
 }

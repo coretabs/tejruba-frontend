@@ -1,11 +1,4 @@
 <template>
-
-  <!-- 
-                  #تعديلات مهمه #
-   [جعل كمبوننت المعلومات يظهر مباشره عند فتح البروفايل] # 
-   [جعل كمبوننت المعلومات يظهر مباشره عند فتح البروفايل] # 
--->
-
   <v-container fluid class="pa-2">
     <div class="clipped-header hidden-md-and-up"></div>
 
@@ -59,20 +52,49 @@
         <v-icon small class="primary--text">fas fa-eye</v-icon>
       </v-btn>
     </v-layout>
-    <v-form ref="editorForm">
-      <v-text-field box color="gray" dark class="white--text mt-2" name="name" label="عنوان التجربه" v-model="Title"
-        :rules="[v => !!v || 'قم بإدخال عنوان للتجربه']" required>
+
+    <v-form ref="editorForm" v-model="valid" lazy-validation>
+      <v-text-field 
+      class="white--text mt-2" 
+      dark 
+      box color="gray" 
+      v-model="Title"
+      name="name" 
+      label="عنوان التجربه" 
+      :rules="[v => !!v || 'قم بإدخال عنوان للتجربه']" required >
       </v-text-field>
 
-      <v-select :items="categories" :rules="[v => !!v || 'يجب إختيار فئه للتجربه']" v-model="Category"
-        label="إختر فئه التجربه" chips solo clearable required>
+      <v-select 
+      :items="categories" 
+      :rules="[v => !!v || 'يجب إختيار فئه للتجربه']" v-model="Category"
+      label="إختر فئه التجربه" chips solo clearable required>
       </v-select>
 
       <!-- editor -->
-
-      <quill-editor calss="text-justify" v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption"> </quill-editor>
-
-    </v-form> <!-- control -->
+      <quill-editor calss="text-justify" v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption">
+      </quill-editor>
+    <v-text-field
+      ref="valditionFieldForEditor"
+      type="hidden"
+      :rules="editorRules"
+      required
+      :value="validationText"
+    ></v-text-field>
+    </v-form> 
+      <v-snackbar
+      auto-height
+      class="snackbar_error "
+      color="error"
+      :timeout="timeout"
+      vertical
+      v-model="snackBar_error"
+    >
+    <p>طول التجربه يجب الا يقل عن 300 حرف</p>
+    <p>تأكد من ملئ جميع الحقول</p>
+    <p>(صوره المقال (إختياريه</p>
+      <v-btn flat color="white" @click.native="snackBar_error = false">فهمت</v-btn>
+    </v-snackbar>
+    <!-- control -->
     <v-layout row wrap class="mb-5">
       <v-btn @click="test()"> حفظ </v-btn>
       <v-spacer></v-spacer>
@@ -108,11 +130,18 @@
         Category: '',
         Delta: '',
         content: '',
-        satus:'',
+        satus: '',
         Hearts: '',
         Likes: '',
         Stars: '',
 
+        valid:true,
+        snackBar_error:false,
+        timeout:parseInt('3000'),
+        editorRules:[
+          v => (v && v.length <= 400) || 'طول التجربه على الاقل 400 حرف'
+          // v => !!v || 'قم بكتابه تجربتك',
+        ],
         categories: [
           'رياضه',
           'فن',
@@ -177,27 +206,34 @@
 
     computed: {
       ...mapGetters(['delta', 'contents', 'editorData', 'textContent']),
+      validationText(){
+        return this.textContent
+      }
     },
     methods: {
       publish: function () {
-        this.$store.commit('publishPost', {
-          ID: this.$store.state.altjarub.length,
-          Img: this.ImgUrl,
-          Title: this.Title,
-          Category: this.Category,
-          //--
-          Delta: this.delta,
-          content:this.textContent,
-          //--
-          Date: this.$moment().fromNow(),
-          //--
-          Hearts: this.Hearts,
-          Stars: this.Stars,
-          Likes: this.Likes,
-        });
-        this.$router.push('/');
-        this.$refs.editorForm.reset();
-
+          if(this.$refs.editorForm.validate()){
+          this.$store.commit('publishPost', {
+            ID: this.$store.state.altjarub.length,
+            Img: this.ImgUrl,
+            Title: this.Title,
+            Category: this.Category,
+            //--
+            Delta: this.delta,
+            content: this.textContent,
+            //--
+            Date: this.$moment().fromNow(),
+            //--
+            Hearts: this.Hearts,
+            Stars: this.Stars,
+            Likes: this.Likes,
+          });
+          this.$router.replace(`/postPage/${this.$store.state.altjarub.length-1}`);
+          this.$refs.editorForm.reset();
+        }
+else{
+  this.snackBar_error=true
+}
       },
       save: function () {
         this.uploadDialog = false
