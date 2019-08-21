@@ -25,8 +25,12 @@ urlpatterns = [
     # http://localhost:8000/api/admin/
     path('api/admin/', admin.site.urls),
 
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls'))
+    # regsiter new user
+    path('api/accounts/registration/', include('rest_auth.registration.urls')),
+    
+    # login and logout
+    path('api/accounts/', include('rest_auth.urls')),
+
+    # update user settings an d profile
+    path('api/accounts/', include('backend.api.accounts.urls'))
 ]
-
-
