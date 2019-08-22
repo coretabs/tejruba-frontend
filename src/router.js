@@ -4,7 +4,6 @@ import Router from "vue-router";
 import Home from "./views/home/Home.vue";
 
 import Editor from "./views/editor/Post_editor.vue"
-import Preview from "./views/editor/Preview.vue"
 
 import singlePostPage from "./views/singlePostPage/singlePostPage.vue"
 
@@ -59,11 +58,7 @@ export default new Router({
       name: "كتابه تجربه",
       component: Editor
     },
-    {
-      path: "/preview",
-      name: "عرض تجربه",
-      component: Preview
-    },
+ 
     {
       path: "/profile",
       name: "البروفايل",

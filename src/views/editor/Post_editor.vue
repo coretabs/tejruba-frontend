@@ -16,13 +16,22 @@
           <v-card-title>
             إختيار صوره
           </v-card-title>
+          <v-img
+            v-if="ImgUrl"
+            contain
+            height="auto"
+            :src="ImgUrl"
+          >
+            
+          </v-img>
           <v-card-text>
             <v-layout column wrap align-start>
               <v-flex shrink>
-                <v-btn router to="/signin" class="mb-3">
+                <v-btn @click="onPickImg" class="mb-3">
                   <v-icon small right @click="uploadDialog = true" class="primary--text">fas fa-upload</v-icon>
                   <span> إختيار صوره من الجهاز </span>
                 </v-btn>
+                <input v-show="false" type="file" ref="imgInput" accept="image/*" @change="onImgUploaded">
               </v-flex>
               <v-divider class="mx-4" dark></v-divider>
               <v-flex>
@@ -32,11 +41,11 @@
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="publish ml-3" color="success" text @click="save">
+            <v-btn class="publish ml-3" color="success" text @click="onSaveUploadedImg">
               حفظ
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="white darken-1" @click="uploadDialog = false">
+            <v-btn color="white darken-1" @click="onCancelImgUpload">
               إغلاق
             </v-btn>
           </v-card-actions>
@@ -48,9 +57,6 @@
         <span>unsplash</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn router to="/preview" icon class="white">
-        <v-icon small class="primary--text">fas fa-eye</v-icon>
-      </v-btn>
     </v-layout>
 
     <v-form ref="editorForm" v-model="valid" lazy-validation>
@@ -83,15 +89,13 @@
     </v-form> 
       <v-snackbar
       auto-height
-      class="snackbar_error "
-      color="error"
+      class="snackbar_error"
+      :color="snackbar.color"
       :timeout="timeout"
       vertical
-      v-model="snackBar_error"
+      v-model="snackbar.trigger"
     >
-    <p>طول التجربه يجب الا يقل عن 300 حرف</p>
-    <p>تأكد من ملئ جميع الحقول</p>
-    <p>(صوره المقال (إختياريه</p>
+      {{ snackbar.message }}
       <v-btn flat color="white" @click.native="snackBar_error = false">فهمت</v-btn>
     </v-snackbar>
     <!-- control -->
@@ -123,9 +127,10 @@
         content: '',
         isMounted: false,
         uploadDialog: false,
+        image:null,
 
         ID: '',
-        ImgUrl: '',
+        ImgUrl: null,
         Title: '',
         Category: '',
         Delta: '',
@@ -139,8 +144,8 @@
         snackBar_error:false,
         timeout:parseInt('3000'),
         editorRules:[
-          v => (v && v.length <= 400) || 'طول التجربه على الاقل 400 حرف'
-          // v => !!v || 'قم بكتابه تجربتك',
+          v => !!v || 'قم بكتابه تجربتك',
+          v => (v && v.length >= 400) || 'طول التجربه على الاقل 400 حرف'
         ],
         categories: [
           'رياضه',
@@ -186,6 +191,8 @@
       }
     },
     mounted: function () {
+      this.$refs.myTextEditor.quill.format('align','right')
+        this.$refs.myTextEditor.quill.format('direction', 'rtl')
       this.isMounted = true
       this.$store.state.currentPage = this.$route.name;
 
@@ -205,7 +212,7 @@
     },
 
     computed: {
-      ...mapGetters(['delta', 'contents', 'editorData', 'textContent']),
+      ...mapGetters(['delta', 'contents','textContent','snackbar']),
       validationText(){
         return this.textContent
       }
@@ -230,18 +237,41 @@
           });
           this.$router.replace(`/postPage/${this.$store.state.altjarub.length-1}`);
           this.$refs.editorForm.reset();
+          this.$refs.myTextEditor.quill.setContents([{ insert: '\n' }]);
+        } else {
+          let snackbar = {
+            message: 'أعد التحقق من البيانات المدخله',
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
         }
-else{
-  this.snackBar_error=true
-}
       },
-      save: function () {
+      onSaveUploadedImg: function () {
         this.uploadDialog = false
       },
-      test: function () {
-        // console.log(this.$refs.myTextEditor.quill.getContents())
-        console.log(this.$store.state.editorData.postDelta);
+      onCancelImgUpload: function () {
+        this.ImgUrl = null
+        this.uploadDialog = false
+        this.image = null
+      },
+      onPickImg: function() {
+        this.$refs.imgInput.click()
+      },
 
+      onImgUploaded: function(event) { 
+        const file = event.target.files[0]
+        let fileName = file.name
+        this.image = file
+        const allowedType = ['image/jpeg', 'image/png', 'image/gif']
+        const isAllowedType = allowedType.includes(file.type)   
+        if(fileName.lastIndexOf('.') <= 0){
+          return alert('قم باضافه صوره صالحه')
+        }
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load',()=>{
+          this.ImgUrl = fileReader.result
+        })
+        fileReader.readAsDataURL(file)
       }
     },
   }

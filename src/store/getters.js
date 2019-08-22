@@ -7,6 +7,6 @@ export default {
                 tag.innerHTML = state.content
                 return tag.innerText
         },
-        editorData: state => state.editorData,
         altejarub: state => state.altjarub,
+        snackbar: state => state.snackbar,
 }
