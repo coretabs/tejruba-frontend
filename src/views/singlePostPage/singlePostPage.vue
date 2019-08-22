@@ -58,7 +58,7 @@
             return {}
         },
         computed: {
-        ...mapGetters(['delta','editorData','altejarub']),
+        ...mapGetters(['delta','altejarub']),
             post() {
                 const id = parseInt(this.$route.params.id);
                 return this.altejarub.filter(function (tejrba) {

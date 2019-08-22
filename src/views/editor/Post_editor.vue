@@ -41,12 +41,13 @@
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="publish ml-3" color="success" text @click="onSaveUploadedImg">
+            <v-btn class="ml-3" :class="[isDisabled ? '' : 'publish']" color="success" text @click="onSaveUploadedImg" :disabled='isDisabled'>
               حفظ
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn color="white darken-1" @click="onCancelImgUpload">
-              إغلاق
+              <v-icon small right color="error">fas fa-trash</v-icon>
+              <span>الغاء</span>
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -82,8 +83,10 @@
     <v-text-field
       ref="valditionFieldForEditor"
       type="hidden"
+      class="hiddenInput"
       :rules="editorRules"
       required
+      background-color="transparent" color="transparent"
       :value="validationText"
     ></v-text-field>
     </v-form> 
@@ -92,7 +95,6 @@
       class="snackbar_error"
       :color="snackbar.color"
       :timeout="timeout"
-      vertical
       v-model="snackbar.trigger"
     >
       {{ snackbar.message }}
@@ -145,7 +147,7 @@
         timeout:parseInt('3000'),
         editorRules:[
           v => !!v || 'قم بكتابه تجربتك',
-          v => (v && v.length >= 400) || 'طول التجربه على الاقل 400 حرف'
+          v => (v && v.length >= 800) || 'طول التجربه على الاقل 800 حرف'
         ],
         categories: [
           'رياضه',
@@ -215,6 +217,12 @@
       ...mapGetters(['delta', 'contents','textContent','snackbar']),
       validationText(){
         return this.textContent
+      },
+      isDisabled(){
+        if(!this.ImgUrl){
+          return true
+        }
+        return false
       }
     },
     methods: {
