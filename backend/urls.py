@@ -35,5 +35,7 @@ urlpatterns = [
     path('api/accounts/', include('rest_auth.urls')),
 
     # update user settings an d profile
-    path('api/accounts/', include('backend.api.accounts.urls'))
+    path('api/accounts/', include('backend.api.accounts.urls')),
+
+    path('api-auth/', include('rest_framework.urls'))
 ]

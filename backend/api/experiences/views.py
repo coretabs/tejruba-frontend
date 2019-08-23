@@ -2,15 +2,17 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework import permissions
 
 from .models import Experience, Tag
 from .serializers import ExperienceSerializer, TagSerializer
-
+from .permissions import IsOwnerOrReadOnly
 
 class ExperienceViewSet(viewsets.ModelViewSet):
     serializer_class = ExperienceSerializer
     queryset = Experience.objects.all()
-
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                      IsOwnerOrReadOnly,)
     def create(self, request):
         # data = request.data
         print(request.data)
