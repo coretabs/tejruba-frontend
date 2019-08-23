@@ -159,5 +159,5 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'backend.api.accounts.serializers.UserSerializer'
+    'USER_DETAILS_SERIALIZER': 'backend.api.accounts.serializers.UserSerializer',
 }

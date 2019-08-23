@@ -10,9 +10,12 @@ from rest_framework import routers
 
 from .api.views import MessageViewSet
 # from .api.views import index_view
+from .api.experiences.views import ExperienceViewSet, TagViewSet
 
 router = routers.DefaultRouter()
 router.register('messages', MessageViewSet)
+router.register('experiences', ExperienceViewSet, basename="experience")
+router.register('tags', TagViewSet, basename="tag")
 
 urlpatterns = [
 
