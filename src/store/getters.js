@@ -8,5 +8,6 @@ export default {
                 return tag.innerText
         },
         altejarub: state => state.altjarub,
+        comments: state => state.comments,
         snackbar: state => state.snackbar,
 }

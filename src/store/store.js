@@ -13,6 +13,7 @@ export default new Vuex.Store({
     content: '',
     FilterdExperiences: [],
     altjarub: [],
+    comments:[],
     snackbar:{
       trigger : false,
       message : '',

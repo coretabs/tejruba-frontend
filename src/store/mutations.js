@@ -17,4 +17,8 @@ export default {
       state.snackbar.message = payload.message
       state.snackbar.color = payload.color
     },
+
+    addComment(state,payload){
+      state.comments.unshift(payload)
+    }
 }
