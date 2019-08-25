@@ -8,7 +8,7 @@ export default {
       state.content = payload;
     },
     
-    publishPost(state ,payload){
+    publishPost(state, payload){
       state.altjarub.push({...payload});
     },
 
@@ -22,11 +22,11 @@ export default {
       state.comments.unshift(payload)
     },
     
-    UpdateUserInfo(state,payload){
+    UpdateUserInfo(state, payload){
       state.userInfo = payload
     },
-    UpdateUserAvatar(state,payload){
-      state.userInfo.avatar = payload
+    UpdateUserAvatar(state, payload){
+      state.userInfo = payload
     },
 
 }

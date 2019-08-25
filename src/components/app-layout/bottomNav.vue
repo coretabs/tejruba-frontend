@@ -1,7 +1,7 @@
 <template>
   <v-bottom-nav id="bottom-nav" color="primary" active.sync="bottomNav" :value="true" dark fixed shift>
     <v-btn dark router to="/">
-      <span>الرئيسيه</span>
+      <span>التجارب</span>
       <v-icon>fas fa-flask</v-icon>
     </v-btn>
 

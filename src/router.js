@@ -9,23 +9,22 @@ import singlePostPage from "./views/singlePostPage/singlePostPage.vue"
 
 
 import Profile from "./views/profile/Profile.vue"
-  import UserAbout from "./views/profile/profile-views/User-about.vue"
-  import UserFav from "./views/profile/profile-views/User-favourite.vue"
-  import UserPosts from "./views/profile/profile-views/User-posts.vue"
-  import ProfileEdit from "./views/profile/profile-views/ProfileEdit.vue"
+import UserAbout from "./views/profile/profile-views/User-about.vue"
+import UserFav from "./views/profile/profile-views/User-favourite.vue"
+import UserPosts from "./views/profile/profile-views/User-posts.vue"
+import ProfileEdit from "./views/profile/profile-views/ProfileEdit.vue"
 
-  import Settings from "./views/Settings.vue"
+import Settings from "./views/Settings.vue"
 
-  // remove 
-  import SignIn from "./views/signin/SignIn.vue"
-  import SignUp from "./views/signup/SignUp.vue"
-  import CatPicker from "./views/CategoriesPicker.vue"
+// remove 
+import SignIn from "./views/signin/SignIn.vue"
+import SignUp from "./views/signup/SignUp.vue"
+import CatPicker from "./views/CategoriesPicker.vue"
 
 Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "الرئيسيه",
       component: Home
@@ -58,42 +57,41 @@ export default new Router({
       name: "كتابه تجربه",
       component: Editor
     },
- 
+
     {
       path: "/profile",
       name: "البروفايل",
       component: Profile,
-      children:[
-        {
-          path: "/about",
+      children: [{
+          path: "/",
           name: "about",
           component: UserAbout
         },
         {
-          path: "/posts",
+          path: "posts",
           name: "posts",
           component: UserPosts
         },
         {
-          path: "/favourites",
+          path: "favourites",
           name: "favourites",
           component: UserFav
         },
-     
+
       ]
     },
-   
-    { 
+    {
       path: "/EditProfile",
       name: "تعديل",
       component: ProfileEdit
     },
+
     {
       path: "/settings",
       name: "الاعدادات",
       component: Settings
     },
-    
+
     // {
     //   path: "",
     //   name: "",
