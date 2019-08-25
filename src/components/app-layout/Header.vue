@@ -15,7 +15,7 @@
             <!-- Avatar -->
 
             <v-avatar size="33" color="primary" >
-                <img   src="../../assets/img/avatar.png"
+                <img   :src="userAvatar || 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'"
                     alt="avatar">
             </v-avatar>
 
@@ -27,10 +27,16 @@
 
 <script>
     export default {
+        data(){
+            return{
+            }
+        },
         computed: {
             currentPage() {
-                console.log('form header ' + this.$store.state.currentPage);
                 return this.$store.state.currentPage
+            },
+            userAvatar(){
+              return this.$store.getters.userInfo.avatar 
             }
         }
     }

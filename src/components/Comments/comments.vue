@@ -5,7 +5,7 @@
                 placeholder="أضف تعليق" v-model="Content">
 
             </v-textarea>
-            <v-btn class="prymary_Gradient_Btn elevation-14 mt-0 mx-0" color="success" @click="onAddComment">إرسال
+            <v-btn larg class="prymary_Gradient_Btn elevation-14 mt-0 mx-0" color="success" @click="onAddComment">إرسال
             </v-btn>
         </v-layout>
         <v-layout column height="400">

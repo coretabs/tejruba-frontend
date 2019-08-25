@@ -90,22 +90,14 @@
       :value="validationText"
     ></v-text-field>
     </v-form> 
-      <v-snackbar
-      auto-height
-      class="snackbar_error"
-      :color="snackbar.color"
-      :timeout="timeout"
-      v-model="snackbar.trigger"
-    >
-      {{ snackbar.message }}
-      <v-btn flat color="white" @click.native="snackBar_error = false">فهمت</v-btn>
-    </v-snackbar>
+    
     <!-- control -->
     <v-layout row wrap class="mb-5">
       <v-btn @click="test()"> حفظ </v-btn>
       <v-spacer></v-spacer>
       <v-btn class="publish elevation-15" @click="publish()" dark> نشر </v-btn>
     </v-layout>
+            <snack-bar/>
   </v-container>
 </template>
 
@@ -120,9 +112,11 @@
     mapGetters
   } from 'vuex'
   import moment from 'moment'
+  import snackBar from '@/components/sharedComponents/snackbar.vue'
   export default {
     components: {
-      quillEditor
+      quillEditor,
+      snackBar
     },
     data() {
       return {
@@ -144,7 +138,6 @@
 
         valid:true,
         snackBar_error:false,
-        timeout:parseInt('3000'),
         editorRules:[
           v => !!v || 'قم بكتابه تجربتك',
           v => (v && v.length >= 800) || 'طول التجربه على الاقل 800 حرف'

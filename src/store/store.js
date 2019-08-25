@@ -14,6 +14,12 @@ export default new Vuex.Store({
     FilterdExperiences: [],
     altjarub: [],
     comments:[],
+    user:{
+      ID:'',
+      userName:'',
+      userInfo:{}
+    },
+    userInfo:{},
     snackbar:{
       trigger : false,
       message : '',

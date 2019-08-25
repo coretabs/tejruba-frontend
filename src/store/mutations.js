@@ -20,5 +20,13 @@ export default {
 
     addComment(state,payload){
       state.comments.unshift(payload)
-    }
+    },
+    
+    UpdateUserInfo(state,payload){
+      state.userInfo = payload
+    },
+    UpdateUserAvatar(state,payload){
+      state.userInfo.avatar = payload
+    },
+
 }

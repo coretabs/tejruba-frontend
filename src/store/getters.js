@@ -9,5 +9,6 @@ export default {
         },
         altejarub: state => state.altjarub,
         comments: state => state.comments,
+        userInfo: state => state.userInfo,
         snackbar: state => state.snackbar,
 }
