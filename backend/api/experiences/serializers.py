@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework_recursive.fields import RecursiveField
 
 from . import models
 
@@ -16,3 +17,11 @@ class ExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Experience
         fields = ['user', 'title', 'content', 'publish_date', 'tags']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    # author = 
+    # post = serializers.
+    class Meta:
+        model = models.Comment 
+        fields = ('text', 'created_date', 'author', 'post')

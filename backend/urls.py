@@ -16,6 +16,7 @@ router = routers.DefaultRouter()
 router.register('messages', MessageViewSet)
 router.register('experiences', ExperienceViewSet, basename="experience")
 router.register('tags', TagViewSet, basename="tag")
+# router.register('comments', CommentViewSet, basename="comments")
 
 urlpatterns = [
 
@@ -37,5 +38,7 @@ urlpatterns = [
     # update user settings an d profile
     path('api/accounts/', include('backend.api.accounts.urls')),
 
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+
+    path('api/comments/', include('backend.api.experiences.urls'))
 ]
