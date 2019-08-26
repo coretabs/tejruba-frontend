@@ -14,8 +14,8 @@ from .api.experiences.views import ExperienceViewSet, TagViewSet
 
 router = routers.DefaultRouter()
 router.register('messages', MessageViewSet)
-router.register('experiences', ExperienceViewSet, basename="Experience")
-router.register('tags', TagViewSet, basename="Tag")
+router.register('experiences', ExperienceViewSet, base_name="Experience")
+router.register('tags', TagViewSet, base_name="Tag")
 # router.register('comments', CommentViewSet, basename="comments")
 
 urlpatterns = [
