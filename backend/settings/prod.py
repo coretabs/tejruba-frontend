@@ -20,4 +20,5 @@ DATABASES = {
 
 DEBUG = False
 # Set to your Domain here (eg. 'django-vue-template-demo.herokuapp.com')
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://tejruba1.herokuapp.com/']
+#ALLOWED_HOSTS = ['*']
