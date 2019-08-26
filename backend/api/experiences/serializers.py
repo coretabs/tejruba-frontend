@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework_recursive.fields import RecursiveField
+# from rest_framework_recursive.fields import RecursiveField
 
 from . import models
 
