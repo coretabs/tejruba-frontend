@@ -49,14 +49,18 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     
+    'corsheaders',
+
     'backend.api',
     'backend.api.accounts',
     'backend.api.experiences'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'api.middlewares.CrossDomainSessionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -160,4 +164,16 @@ REST_FRAMEWORK = {
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'backend.api.accounts.serializers.UserSerializer',
+}
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+
+COOKIE_DOMAINS = {
+    'http://tejruba1.herokuapp.com': 'tejruba1.herokuapp.com',
+    'http://127.0.0.1:8000': '127.0.0.1',
+    'http://127.0.0.1:8080': '127.0.0.1',
+    'http://localhost:8080': '127.0.0.1'
 }
