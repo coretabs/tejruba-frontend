@@ -23,6 +23,9 @@ class ExperienceSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     # author = 
     # post = serializers.
+    author_name = serializers.CharField(source="author.username", read_only=True)
+    post_title = serializers.CharField(source="post.title", read_only=True)
+
     class Meta:
         model = models.Comment 
-        fields = ('pk', 'text', 'created_date', 'author', 'post')
+        fields = ('pk', 'author', 'author_name', 'text', 'created_date', 'post', 'post_title')
