@@ -12,11 +12,11 @@ class TagSerializer(serializers.ModelSerializer):
 
 class ExperienceSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
-    #tags = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    tags = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = models.Experience
-        fields = ['user', 'title', 'content', 'publish_date', 'tags']
+        fields = ['pk', 'user', 'title', 'content', 'publish_date', 'tags']
 
 
 class CommentSerializer(serializers.ModelSerializer):
