@@ -1,33 +1,35 @@
 import axios from 'axios'
 
 let $backend = axios.create({
-  baseURL: '/api',
-  timeout: 5000,
-  headers: {'Content-Type': 'application/json'}
+  baseURL: 'https://tejruba1.herokuapp.com/api/',
+  // timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  },
+
 })
 
 // Response Interceptor to handle and log errors
 $backend.interceptors.response.use(function (response) {
-  return response
-}, function (error) {
-  // eslint-disable-next-line
-  console.log(error)
-  return Promise.reject(error)
-})
+    return response
+  },
+  function (error) {
+    // eslint-disable-next-line
+    console.log(error)
+    return Promise.reject(error)
+  })
 
-$backend.$fetchMessages = () => {
-    return $backend.get(`messages/`)
-        .then(response => response.data)
+$backend.$register = (user) => {
+  return $backend.post(`accounts/registration`, {
+      username: user.name,
+      email: user.email,
+      password1: user.password,
+      password2: user.password
+    })
+    .then(response => {
+      console.log(response.data)
+      return response.data
+    })
 }
-
-$backend.$postMessage = (payload) => {
-    return $backend.post(`messages/`, payload)
-        .then(response => response.data)
-}
-
-$backend.$deleteMessage = (msgId) => {
-    return $backend.delete(`messages/${msgId}`)
-        .then(response => response.data)
-}
-
 export default $backend

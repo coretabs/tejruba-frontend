@@ -2,11 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import Home from "./views/home/Home.vue";
-
 import Editor from "./views/editor/Post_editor.vue"
-
 import singlePostPage from "./views/singlePostPage/singlePostPage.vue"
-
 
 import Profile from "./views/profile/Profile.vue"
 import UserAbout from "./views/profile/profile-views/User-about.vue"
