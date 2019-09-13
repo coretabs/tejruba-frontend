@@ -140,7 +140,7 @@ STATIC_URL = '/static/'
 # Serve `dist` as is, built by webpack
 # STATIC_ROOT = os.path.join(BASE_DIR, 'dist', 'static')
 STATICFILES_DIRS = [
-  os.path.join(BASE_DIR, 'dist/static/'),
+  os.path.join(BASE_DIR, 'dist/static'),
 ]
 
 ##########
