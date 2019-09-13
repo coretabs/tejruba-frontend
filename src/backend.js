@@ -21,7 +21,7 @@ $backend.interceptors.response.use(function (response) {
   })
 
 $backend.$register = (user) => {
-  return $backend.post(`accounts/registration`, {
+  return $backend.post(`accounts/registration/`, {
       username: user.name,
       email: user.email,
       password1: user.password,
