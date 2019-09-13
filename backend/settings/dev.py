@@ -16,6 +16,8 @@ import os
 SETTINGS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(SETTINGS_DIR)
 
+print('base dir:', BASE_DIR)
+print('settings dir: ', SETTINGS_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -71,7 +73,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # Add dist to
-        'DIRS': [os.path.join(BASE_DIR, '..', 'dist')],
+        'DIRS': [os.path.join(BASE_DIR, 'dist/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,9 +138,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # Serve `dist` as is, built by webpack
-STATIC_ROOT = os.path.join(BASE_DIR, 'dist', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'dist', 'static')
 STATICFILES_DIRS = [
-  os.path.join(BASE_DIR, '..', 'dist/static'),
+  os.path.join(BASE_DIR, 'dist/static/'),
 ]
 
 ##########
