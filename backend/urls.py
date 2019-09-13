@@ -34,7 +34,7 @@ urlpatterns = [
     path('api/accounts/registration/', include('rest_auth.registration.urls')),
     
     # login and logout
-    path('api/accounts/', include('rest_auth.urls')),
+    # path('api/accounts/', include('rest_auth.urls')),
 
     # update user settings an d profile
     path('api/accounts/', include('backend.api.accounts.urls')),
