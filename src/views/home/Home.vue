@@ -16,14 +16,14 @@
                 </v-avatar>
               </v-layout>
             </v-img>
-            
-            <v-card-title primary-title class="pb-0 text-xs-right">
+
+            <v-card-title primary-title class="text-xs-right">
               <div>
                 <h2 class="" ma-0>{{ tejruba.Title }}</h2>
               </div>
             </v-card-title>
             <v-card-text class="pt-0">
-              <p class=" text-xs-right mb-0 caption"> نص يجب ان يكون مقتطع من النص الاصلي</p>
+              <p class="row-4 text-xs-right mb-0 caption"> {{ tejruba.content | truncate }} </p>
             </v-card-text>
             <div class="caption ml-0 mb-2 mx-3 text-xs-right">
               {{ tejruba.Date }}
@@ -52,15 +52,23 @@
   import {
     mapGetters
   } from 'vuex'
+  import {
+    connect
+  } from 'net';
 
   export default {
     name: "home",
     components: {
       categoriesList,
     },
+    data() {
+      return {
+
+      }
+    },
 
     computed: {
-      ...mapGetters(['altejarub']),
+      ...mapGetters(['altejarub', 'contents', 'textContent']),
       FilterdExperiences() {
         if (this.$store.state.experienceFilterValue) {
           return this.altejarub.filter((exp) => {
@@ -70,6 +78,7 @@
           return this.altejarub
         }
       }
+    
     },
 
     methods: {
@@ -82,9 +91,22 @@
       this.$store.state.currentPage = this.$route.name;
       console.log(this.$store.state.currentPage);
       // console.log(this.$route.name); 
+    },
+    
+    filters: {
+      truncate(value) {
+        if (!value) return ''
+        value = value.toString()
+      var content = value.trim()
+          content = content.split(' ').slice(0, 30)
+          content = content.join(' ')
+          value = content
+          console.log('...>>>  ',value)
+        return value
+      },
     }
 
-  };
+}
 </script>
 
 <style lang="scss" scoped>

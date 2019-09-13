@@ -6,32 +6,25 @@ import getters from './getters'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    // header 
+  state: {    // header 
     currentPage: '',
-    //home
     experienceFilterValue:'',
-    // editor
     delta: undefined,
     content: '',
-
-    // ------------------------
     FilterdExperiences: [],
     altjarub: [],
-    // editorData: {
-    //   postID: 3,
-    //   postImg: 'https://images.unsplash.com/photo-1563714272638-882a6309ba7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    //   postTitle: '',
-    //   postCategory: 'فن',
-    //   //--
-    //   postDelta: undefined,
-    //   //--
-    //   postDate: '',
-    //   //--
-    //   postHearts: '',
-    //   postLikes: '',
-    //   postStars: '',
-    // },
+    comments:[],
+    user:{
+      ID:'',
+      userName:'',
+      userInfo:{}
+    },
+    userInfo:{},
+    snackbar:{
+      trigger : false,
+      message : '',
+      color: ''
+    },
   },
 
   getters,

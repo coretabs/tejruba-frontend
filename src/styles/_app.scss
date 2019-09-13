@@ -32,8 +32,30 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background: #fff;
 }
 
 * {
   z-index: 0;
+}
+
+.prymary_Gradient_Btn{
+  border-radius: 3px;
+  width: 150px;
+  text-align: center;
+  @include app_gradient (-200deg, 0%, 85%);
+}
+
+// textarea{
+//   margin-top: 0 !important;
+//   padding:20px 8px  !important;
+// }
+
+ql-editor p {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.ql-editor p img{
+  padding: 10px 0;
+  width: 100%;
 }

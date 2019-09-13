@@ -1,11 +1,4 @@
 <template>
-
-  <!-- 
-                  #تعديلات مهمه #
-   [جعل كمبوننت المعلومات يظهر مباشره عند فتح البروفايل] # 
-   [جعل كمبوننت المعلومات يظهر مباشره عند فتح البروفايل] # 
--->
-
   <v-container fluid class="pa-2">
     <div class="clipped-header hidden-md-and-up"></div>
 
@@ -23,13 +16,22 @@
           <v-card-title>
             إختيار صوره
           </v-card-title>
+          <v-img
+            v-if="ImgUrl"
+            contain
+            height="auto"
+            :src="ImgUrl"
+          >
+            
+          </v-img>
           <v-card-text>
             <v-layout column wrap align-start>
               <v-flex shrink>
-                <v-btn router to="/signin" class="mb-3">
+                <v-btn @click="onPickImg" class="mb-3">
                   <v-icon small right @click="uploadDialog = true" class="primary--text">fas fa-upload</v-icon>
                   <span> إختيار صوره من الجهاز </span>
                 </v-btn>
+                <input v-show="false" type="file" ref="imgInput" accept="image/*" @change="onImgUploaded">
               </v-flex>
               <v-divider class="mx-4" dark></v-divider>
               <v-flex>
@@ -39,12 +41,13 @@
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="publish ml-3" color="success" text @click="save">
+            <v-btn class="ml-3" :class="[isDisabled ? '' : 'publish']" color="success" text @click="onSaveUploadedImg" :disabled='isDisabled'>
               حفظ
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="white darken-1" @click="uploadDialog = false">
-              إغلاق
+            <v-btn color="white darken-1" @click="onCancelImgUpload">
+              <v-icon small right color="error">fas fa-trash</v-icon>
+              <span>الغاء</span>
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -55,29 +58,46 @@
         <span>unsplash</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn router to="/preview" icon class="white">
-        <v-icon small class="primary--text">fas fa-eye</v-icon>
-      </v-btn>
     </v-layout>
-    <v-form ref="editorForm">
-      <v-text-field box color="gray" dark class="white--text mt-2" name="name" label="عنوان التجربه" v-model="Title"
-        :rules="[v => !!v || 'قم بإدخال عنوان للتجربه']" required>
+
+    <v-form ref="editorForm" v-model="valid" lazy-validation>
+      <v-text-field 
+      class="white--text mt-2" 
+      dark 
+      box color="gray" 
+      v-model="Title"
+      name="name" 
+      label="عنوان التجربه" 
+      :rules="[v => !!v || 'قم بإدخال عنوان للتجربه']" required >
       </v-text-field>
 
-      <v-select :items="categories" :rules="[v => !!v || 'يجب إختيار فئه للتجربه']" v-model="Category"
-        label="إختر فئه التجربه" chips solo clearable required>
+      <v-select 
+      :items="categories" 
+      :rules="[v => !!v || 'يجب إختيار فئه للتجربه']" v-model="Category"
+      label="إختر فئه التجربه" chips solo clearable required>
       </v-select>
 
       <!-- editor -->
-
-      <quill-editor v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption"> </quill-editor>
-
-    </v-form> <!-- control -->
+      <quill-editor calss="text-justify" v-model="content" id="editorQuill" ref="myTextEditor" :options="editorOption">
+      </quill-editor>
+    <v-text-field
+      ref="valditionFieldForEditor"
+      type="hidden"
+      class="hiddenInput"
+      :rules="editorRules"
+      required
+      background-color="transparent" color="transparent"
+      :value="validationText"
+    ></v-text-field>
+    </v-form> 
+    
+    <!-- control -->
     <v-layout row wrap class="mb-5">
       <v-btn @click="test()"> حفظ </v-btn>
       <v-spacer></v-spacer>
       <v-btn class="publish elevation-15" @click="publish()" dark> نشر </v-btn>
     </v-layout>
+            <snack-bar/>
   </v-container>
 </template>
 
@@ -92,25 +112,36 @@
     mapGetters
   } from 'vuex'
   import moment from 'moment'
+  import snackBar from '@/components/sharedComponents/snackbar.vue'
   export default {
     components: {
-      quillEditor
+      quillEditor,
+      snackBar
     },
     data() {
       return {
         content: '',
         isMounted: false,
         uploadDialog: false,
+        image:null,
 
         ID: '',
-        ImgUrl: '',
+        ImgUrl: null,
         Title: '',
         Category: '',
         Delta: '',
+        content: '',
+        satus: '',
         Hearts: '',
         Likes: '',
         Stars: '',
 
+        valid:true,
+        snackBar_error:false,
+        editorRules:[
+          v => !!v || 'قم بكتابه تجربتك',
+          v => (v && v.length >= 800) || 'طول التجربه على الاقل 800 حرف'
+        ],
         categories: [
           'رياضه',
           'فن',
@@ -155,6 +186,8 @@
       }
     },
     mounted: function () {
+      this.$refs.myTextEditor.quill.format('align','right')
+        this.$refs.myTextEditor.quill.format('direction', 'rtl')
       this.isMounted = true
       this.$store.state.currentPage = this.$route.name;
 
@@ -167,8 +200,6 @@
       content(val) {
         if (!this.isMounted) {
           this.$store.commit('setDelta', this.$refs.myTextEditor.quill.getContents())
-          // this.$store.commit('setPostDelta', this.$refs.myTextEditor.quill.getContents()/
-          // this.$store.commit('setPostContent')
         }
         this.$store.commit('setContent', val)
         this.isMounted = false
@@ -176,34 +207,72 @@
     },
 
     computed: {
-      ...mapGetters(['delta', 'contents', 'editorData']),
+      ...mapGetters(['delta', 'contents','textContent','snackbar']),
+      validationText(){
+        return this.textContent
+      },
+      isDisabled(){
+        if(!this.ImgUrl){
+          return true
+        }
+        return false
+      }
     },
     methods: {
       publish: function () {
-        this.$store.commit('publishPost', {
-          ID: this.$store.state.altjarub.length,
-          Img: this.ImgUrl,
-          Title: this.Title,
-          Category: this.Category,
-          //--
-          Delta: this.delta,
-          //--
-          Date: this.$moment().fromNow(),
-          //--
-          Hearts: this.Hearts,
-          Stars: this.Stars,
-          Likes: this.Likes,
-        });
-        this.$router.push('/');
-        this.$refs.editorForm.reset();
+          if(this.$refs.editorForm.validate()){
+          this.$store.commit('publishPost', {
+            ID: this.$store.state.altjarub.length,
+            Img: this.ImgUrl,
+            Title: this.Title,
+            Category: this.Category,
+            //--
+            Delta: this.delta,
+            content: this.textContent,
+            //--
+            Date: this.$moment().fromNow(),
+            //--
+            Hearts: this.Hearts,
+            Stars: this.Stars,
+            Likes: this.Likes,
+          });
+          this.$router.replace(`/postPage/${this.$store.state.altjarub.length-1}`);
+          this.$refs.editorForm.reset();
+          this.$refs.myTextEditor.quill.setContents([{ insert: '\n' }]);
+        } else {
+          let snackbar = {
+            message: 'أعد التحقق من البيانات المدخله',
+            color: 'error'
+          }
+          this.$store.commit('updateSnackbar', snackbar)
+        }
       },
-      save: function () {
+      onSaveUploadedImg: function () {
         this.uploadDialog = false
       },
-      test: function () {
-        // console.log(this.$refs.myTextEditor.quill.getContents())
-        console.log(this.$store.state.editorData.postDelta);
+      onCancelImgUpload: function () {
+        this.ImgUrl = null
+        this.uploadDialog = false
+        this.image = null
+      },
+      onPickImg: function() {
+        this.$refs.imgInput.click()
+      },
 
+      onImgUploaded: function(event) { 
+        const file = event.target.files[0]
+        let fileName = file.name
+        this.image = file
+        const allowedType = ['image/jpeg', 'image/png', 'image/gif']
+        const isAllowedType = allowedType.includes(file.type)   
+        if(fileName.lastIndexOf('.') <= 0){
+          return alert('قم باضافه صوره صالحه')
+        }
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load',()=>{
+          this.ImgUrl = fileReader.result
+        })
+        fileReader.readAsDataURL(file)
       }
     },
   }
