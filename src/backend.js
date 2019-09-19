@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+var localBaseUrl = 'http://localhost:8000/api/';
+var remoteBaseUrl = 'https://tejruba1.herokuapp.com/api/';
+
 let $backend = axios.create({
-  baseURL: 'https://tejruba1.herokuapp.com/api/',
+  // baseURL: localBaseUrl,
   // timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
@@ -9,6 +12,8 @@ let $backend = axios.create({
   },
 
 })
+
+$backend.defaults.baseURL = localBaseUrl;
 
 // Response Interceptor to handle and log errors
 $backend.interceptors.response.use(function (response) {
@@ -21,6 +26,10 @@ $backend.interceptors.response.use(function (response) {
   })
 
 $backend.$register = (user) => {
+  console.log(user.username);
+  console.log(user.email);
+  console.log(user.password);
+
   return $backend.post(`accounts/registration/`, {
       username: user.name,
       email: user.email,
