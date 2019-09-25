@@ -26,10 +26,6 @@ $backend.interceptors.response.use(function (response) {
   })
 
 $backend.$register = (user) => {
-  console.log(user.username);
-  console.log(user.email);
-  console.log(user.password);
-
   return $backend.post(`accounts/registration/`, {
       username: user.name,
       email: user.email,
