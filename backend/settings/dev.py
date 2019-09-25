@@ -51,12 +51,15 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     
+    'corsheaders',
+
     'backend.api',
     'backend.api.accounts',
     'backend.api.experiences'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -164,3 +167,7 @@ REST_AUTH_SERIALIZERS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = []
