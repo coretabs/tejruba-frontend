@@ -1,16 +1,19 @@
 import axios from 'axios'
 
-var localBaseUrl = 'http://localhost:8000/api/';
-var remoteBaseUrl = 'https://tejruba1.herokuapp.com/api/';
+const localBaseUrl = 'http://localhost:8000/api/';
+const remoteBaseUrl = 'https://tejruba1.herokuapp.com/api/';
+const CSRF_COOKIE_NAME = 'csrftoken';
+const CSRF_HEADER_NAME = 'X-CSRFToken';
 
 let $backend = axios.create({
-  // baseURL: localBaseUrl,
+  baseURL: localBaseUrl,
   // timeout: 5000,
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
-  },
-
+  // headers: {
+  //   'Content-Type': 'application/json',
+  //   'Access-Control-Allow-Origin': '*'
+  // },
+  xsrfCookieName: CSRF_COOKIE_NAME,
+  xsrfHeaderName: CSRF_HEADER_NAME
 })
 
 $backend.defaults.baseURL = localBaseUrl;
@@ -26,6 +29,7 @@ $backend.interceptors.response.use(function (response) {
   })
 
 $backend.$register = (user) => {
+  console.log(user);
   return $backend.post(`accounts/registration/`, {
       username: user.name,
       email: user.email,

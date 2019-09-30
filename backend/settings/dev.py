@@ -16,9 +16,6 @@ import os
 SETTINGS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(SETTINGS_DIR)
 
-print('base dir:', BASE_DIR)
-print('settings dir: ', SETTINGS_DIR)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -154,11 +151,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware',)
 # http://whitenoise.evans.io/en/stable/django.html#make-sure-staticfiles-is-configured-correctly
 
+REST_SESSION_LOGIN = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
 
@@ -166,8 +169,23 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'backend.api.accounts.serializers.UserSerializer',
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = []
+# CORS_ORIGIN_WHITELIST = [
+#     "http://tejruba1.herokuapp.com",
+    
+#     "http://localhost:8080",
+#     "http://127.0.0.1:8080",
+
+#     "chrome-search://local-ntp:8000"
+# ]
+
+
+# Django allauth (account registration email flow)
+# http://django-allauth.readthedocs.io/en/latest/configuration.html
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+
+CSRF_USE_SESSIONS = True
