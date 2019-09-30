@@ -16,7 +16,7 @@ let $backend = axios.create({
   xsrfHeaderName: CSRF_HEADER_NAME
 })
 
-$backend.defaults.baseURL = localBaseUrl;
+$backend.defaults.baseURL = remoteBaseUrl;
 
 // Response Interceptor to handle and log errors
 $backend.interceptors.response.use(function (response) {
