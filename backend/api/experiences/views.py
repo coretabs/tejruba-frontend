@@ -13,8 +13,10 @@ from .permissions import IsOwnerOrReadOnly
 class ExperienceViewSet(viewsets.ModelViewSet):
     serializer_class = ExperienceSerializer
     queryset = Experience.objects.all()
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                      IsOwnerOrReadOnly,)
+    permission_classes = (
+                        permissions.IsAuthenticated,
+                        IsOwnerOrReadOnly
+    )
 
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
