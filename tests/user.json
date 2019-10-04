@@ -1,0 +1,63 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$RVyvzfNVPd8W$SyluPuTGNNR3t/6YVwKEQckJf8EFDWsM96Z1yKovb10=",
+    "last_login": "2019-08-23T18:50:28.476Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@server.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-08-23T18:49:47.330Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$RVyvzfNVPd8W$SyluPuTGNNR3t/6YVwKEQckJf8EFDWsM96Z1yKovb10=",
+    "username": "ibrahim",
+    "email": "ibrahim@server.com"
+  }
+},
+
+
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$RVyvzfNVPd8W$SyluPuTGNNR3t/6YVwKEQckJf8EFDWsM96Z1yKovb10=",
+    "username": "amjad",
+    "email": "amjad@server.com"
+  }
+},
+
+
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$RVyvzfNVPd8W$SyluPuTGNNR3t/6YVwKEQckJf8EFDWsM96Z1yKovb10=",
+    "username": "yasser",
+    "email": "yasser@server.com"
+  }
+},
+
+
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$RVyvzfNVPd8W$SyluPuTGNNR3t/6YVwKEQckJf8EFDWsM96Z1yKovb10=",
+    "username": "hecham",
+    "email": "hecham@server.com"
+  }
+}
+]
