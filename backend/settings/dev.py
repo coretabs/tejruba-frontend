@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     
     'corsheaders',
 
@@ -188,5 +189,11 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
-
 CSRF_USE_SESSIONS = True
+
+COOKIE_DOMAINS = {
+    'https://tejruba1.herokuapp.com': '.herokuapp.com',
+    'http://127.0.0.1:8000': '127.0.0.1',
+    'http://127.0.0.1:8080': '127.0.0.1',
+    'http://localhost:8080': '127.0.0.1'
+}
