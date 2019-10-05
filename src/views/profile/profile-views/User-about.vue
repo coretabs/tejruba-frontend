@@ -11,7 +11,7 @@
         </v-card-text>
       </v-card>
       <v-layout row justify-center align-center>
-        <v-btn v-for="icon in icons" :key="icon" class="mx-3 grey--text" icon :href="icon.url" target="blank">
+        <v-btn v-for="icon in icons" :key="icon.icon" class="mx-3 grey--text" icon :href="icon.url" target="blank">
           <v-icon size="24px">{{ icon.icon }}</v-icon>
         </v-btn>
       </v-layout>

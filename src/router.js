@@ -61,7 +61,7 @@ export default new Router({
       component: Profile,
       children: [{
           path: "/",
-          name: "about",
+          name: "البروفايل",
           component: UserAbout
         },
         {
